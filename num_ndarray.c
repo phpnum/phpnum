@@ -110,37 +110,32 @@ ZEND_METHOD(num_ndarray, getData)
     RETURN_ZVAL(data, 1, 0);
 }
 
-ZEND_METHOD(num_ndarray, setData)
-{
-    zval *data;
-    if( zend_parse_parameters(ZEND_NUM_ARGS(), "z", &data) == FAILURE )
-    {
-        RETURN_NULL();
-    }
-    zend_update_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), data);
-    RETURN_TRUE;
-}
-
 ZEND_METHOD(num_ndarray, getShape)
 {
     zval *shape = zend_read_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_SHAPE), 0, NULL);
     RETURN_ZVAL(shape, 1, 0);
 }
 
-ZEND_METHOD(num_ndarray, setShape)
+ZEND_METHOD(num_ndarray, getNdim)
 {
-    zval *shape;
-    if( zend_parse_parameters(ZEND_NUM_ARGS(), "z", &shape) == FAILURE )
-    {
-        RETURN_NULL();
-    }
-    zend_update_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_SHAPE), shape);
-    RETURN_TRUE;
+    zval *shape = zend_read_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_SHAPE), 0, NULL);
+    RETURN_LONG(zend_array_count(Z_ARRVAL_P(shape)));
+}
+
+ZEND_METHOD(num_ndarray, getSize)
+{
+    zval *shape = zend_read_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_SHAPE), 0, NULL);
+    zval *val;
+    HashTable *ht;
+    ulong size = 1;
+    ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(shape), val) {
+        size *= Z_LVAL_P(val);
+    } ZEND_HASH_FOREACH_END();
+    RETURN_LONG(size);
 }
 
 ZEND_METHOD(num_ndarray, __toString)
 {
-    php_printf("__toString called\n");
     zval *data = zend_read_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
     zval level, ret, prefix, suffix;
     ZVAL_LONG(&level, 0);
@@ -292,9 +287,9 @@ zend_function_entry num_ndarray_methods[]=
 {
     ZEND_ME(num_ndarray, __construct, NULL, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
     ZEND_ME(num_ndarray, getData, NULL, ZEND_ACC_PUBLIC)
-    ZEND_ME(num_ndarray, setData, NULL, ZEND_ACC_PROTECTED)
     ZEND_ME(num_ndarray, getShape, NULL, ZEND_ACC_PUBLIC)
-    ZEND_ME(num_ndarray, setShape, NULL, ZEND_ACC_PROTECTED)
+    ZEND_ME(num_ndarray, getNdim, NULL, ZEND_ACC_PUBLIC)
+    ZEND_ME(num_ndarray, getSize, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, __toString, NULL, ZEND_ACC_PUBLIC )
     ZEND_ME(num_ndarray, _to_string, NULL, ZEND_ACC_PROTECTED)
     ZEND_ME(num_ndarray, add, NULL, ZEND_ACC_PUBLIC)
@@ -309,7 +304,7 @@ zend_function_entry num_ndarray_methods[]=
 NUM_STARTUP_FUNCTION(ndarray)
 {
     zend_class_entry ce;
-    INIT_CLASS_ENTRY(ce, "Num_Ndarray", num_ndarray_methods);
+    INIT_CLASS_ENTRY(ce, "NumNdarray", num_ndarray_methods);
     num_ndarray_ce = zend_register_internal_class(&ce);
     zend_declare_property_null(num_ndarray_ce, ZEND_STRL("_data"), ZEND_ACC_PUBLIC);
     zend_declare_property_null(num_ndarray_ce, ZEND_STRL("_shape"), ZEND_ACC_PUBLIC);

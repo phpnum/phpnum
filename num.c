@@ -72,7 +72,7 @@ ZEND_METHOD(num, ndarray)
     }
     object_init_ex(&obj, num_ndarray_ce);
     zend_call_method_with_1_params(&obj, num_ndarray_ce, NULL, "__construct", &ret, data);
-    RETURN_ZVAL(&ret, 1, 0);
+    RETURN_ZVAL(&ret, 1, 1);
 }
 
 static zend_function_entry num_methods[]=
