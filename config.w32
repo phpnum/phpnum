@@ -1,0 +1,13 @@
+// $Id$
+// vim:ft=javascript
+
+// If your extension references something external, use ARG_WITH
+// ARG_WITH("num", "for num support", "no");
+
+// Otherwise, use ARG_ENABLE
+// ARG_ENABLE("num", "enable num support", "no");
+
+if (PHP_NUM != "no") {
+	EXTENSION("num", "num.c num_ndarray.c", PHP_EXTNAME_SHARED, "/DZEND_ENABLE_STATIC_TSRMLS_CACHE=1");
+}
+
