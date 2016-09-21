@@ -1,8 +1,6 @@
 /*
   +----------------------------------------------------------------------+
-  | PHPNUM - A PHP extension for scientific computing                    |
-  +----------------------------------------------------------------------+
-  | Copyright (c) 1997-2016 The PHP Group                                |
+  | phpnum - A PHP extension for scientific computing                    |
   +----------------------------------------------------------------------+
   | This source file is subject to version 3.01 of the PHP license,      |
   | that is bundled with this package in the file LICENSE, and is        |
@@ -72,7 +70,7 @@ ZEND_METHOD(num, ndarray)
     }
     object_init_ex(&obj, num_ndarray_ce);
     zend_call_method_with_1_params(&obj, num_ndarray_ce, NULL, "__construct", &ret, data);
-    RETURN_ZVAL(&ret, 1, 1);
+    RETURN_ZVAL(&ret, 1, 0);
 }
 
 static zend_function_entry num_methods[]=
