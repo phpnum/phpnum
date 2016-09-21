@@ -11,7 +11,7 @@ A PHP extension for scientific computing. Inspired by [NumPy](https://github.com
 2. [Classes and methods](#classes-and-methods)
    * [Usage](#usage)
    * [Characteristics](#characteristics)
-   * [Arithmetic Operations](#[arithmetic-operations)
+   * [Arithmetic Operations](#arithmetic-operations)
 
 -----
 
@@ -93,10 +93,10 @@ Ndarray([
 
 ## Characteristics
 
-1. [getData](#getData) - Data of the ndarray
-2. [getShape](#getShape) -Shape of ndarray dimensions
-3. [getNdim](#getNdim) - Number of ndarray dimensions
-4. [getSize](#getSize) - Number of elements in the ndarray
+1. [getData](#getdata) - Data of the ndarray
+2. [getShape](#getshape) - Shape of ndarray dimensions
+3. [getNdim](#getndim) - Number of ndarray dimensions
+4. [getSize](#getsize) - Number of elements in the ndarray
 
 ### getData
 -----
