@@ -1,4 +1,7 @@
 # phpnum
+
+[![Build Status](https://travis-ci.org/phpnum/phpnum.svg?branch=master)](https://travis-ci.org/phpnum/phpnum)
+
 A PHP extension for scientific computing. Inspired by [NumPy](https://github.com/numpy/numpy) & [NumPHP](https://github.com/NumPHP/NumPHP).
 
 
