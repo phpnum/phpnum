@@ -30,34 +30,6 @@
 
 zend_class_entry *num_ce;
 
-int call_user_method(zval *obj, zend_class_entry *obj_ce, zval func, zval *retval, uint32_t params_count, zval params[]){ 
-    HashTable *function_table; 
-
-    if(obj) { 
-        function_table = &Z_OBJCE_P(obj)->function_table;
-    }else{
-        function_table = (CG(function_table));
-    }
-
-    zend_fcall_info fci;  
-    fci.size = sizeof(fci);  
-    fci.function_table = function_table;  
-    fci.object =  obj ? Z_OBJ_P(obj) : NULL;;
-    fci.function_name = func;   
-    fci.retval = retval;  
-    fci.param_count = params_count;  
-    fci.params = params;  
-    fci.no_separation = 1;  
-    fci.symbol_table = NULL;  
-
-    int result;
-    result = zend_call_function(&fci, NULL TSRMLS_CC);         //函数调用结束。  
-
-    if (result == FAILURE) {
-        zend_printf("call user method error\n");
-    }
-}
-
 /* If you declare any globals in php_num.h uncomment this:
 ZEND_DECLARE_MODULE_GLOBALS(num)
 */

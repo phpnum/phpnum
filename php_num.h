@@ -46,8 +46,6 @@ extern zend_module_entry num_module_entry;
 
 extern zend_class_entry *num_ce;
 
-int call_user_method(zval *obj, zend_class_entry *obj_ce, zval func, zval *retval, uint32_t params_count, zval params[]);
-
 /*
   	Declare any global variables you may need between the BEGIN
 	and END macros here:
