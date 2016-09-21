@@ -31,7 +31,7 @@ phpize
 make && make install
 ~~~
 
-`make install` copies `num.so` to an appropriate location, but you still need to enable the module in the PHP config file. To do so, either edit your php.ini or add a num.ini file in `/etc/php/conf.d` with the following contents: `extension=num.so`.
+`make install` copies `num.so` to an appropriate location, but you still need to enable the module in the PHP config file. To do so, either edit your php.ini or add a num.ini file in `/path/to/php.d` with the following contents: `extension=num.so`.
 
 # Classes and methods
 
