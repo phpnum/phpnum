@@ -45,7 +45,7 @@ make && make install
 
 1. [Class Num](#class-num) - Creates a Num object
 2. [Class NumNdarray](#class-numndarray) - Creates a N-dimensional array (ndarray) object
-3. [Printing](#printing) - Prints a ndarray: *Object*
+3. [Printing](#printing) - Prints a ndarray object
 
 ### Class Num
 -----
@@ -86,7 +86,7 @@ _**Description**_: Prints a ndarray object
 $ndarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
 echo $ndarray;
 /* output: 
-Ndarray([
+array([
   [1,2,3],
   [2,3,4]
 ])
