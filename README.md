@@ -62,11 +62,11 @@ $num = new Num();
 _**Description**_: Creates a N-dimensional array (ndarray) object
 
 ##### *Parameters*
-*Array*
+array: *Array*
 
 ##### *Return value*
 
-*Object*
+ndarray: *Object*
 
 ##### *Example*
 
@@ -74,7 +74,7 @@ _**Description**_: Creates a N-dimensional array (ndarray) object
 $ndarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
 /* equivalent to: */
 $num = new Num();
-$ndarray = $num->ndarray([[1.0, 2, 3], [2, 3, 4]]);
+$ndarray = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 ~~~
 ### Printing
 -----
@@ -193,8 +193,8 @@ ndarray: *Object*
 
 ~~~
 $num = new Num();
-$a = $num->ndarray([[1.0, 2, 3], [2, 3, 4]]);
-$b = $num->ndarray([[3.2, 1.5, 1], [2.5, 4, 2]]);
+$a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
+$b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->add($b);
 /* output:
 Ndarray([
@@ -218,8 +218,8 @@ ndarray: *Object*
 
 ~~~
 $num = new Num();
-$a = $num->ndarray([[1.0, 2, 3], [2, 3, 4]]);
-$b = $num->ndarray([[3.2, 1.5, 1], [2.5, 4, 2]]);
+$a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
+$b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->sub($b);
 /* output:
 Ndarray([
@@ -243,8 +243,8 @@ ndarray: *Object*
 
 ~~~
 $num = new Num();
-$a = $num->ndarray([[1.0, 2, 3], [2, 3, 4]]);
-$b = $num->ndarray([[3.2, 1.5, 1], [2.5, 4, 2]]);
+$a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
+$b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->mult($b);
 /* output:
 Ndarray([
@@ -268,8 +268,8 @@ ndarray: *Object*
 
 ~~~
 $num = new Num();
-$a = $num->ndarray([[1.0, 2, 3], [2, 3, 4]]);
-$b = $num->ndarray([[3.2, 1.5, 1], [2.5, 4, 2]]);
+$a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
+$b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->div($b);
 /* output:
 Ndarray([
@@ -300,7 +300,7 @@ amin: *Double*
 
 ~~~
 $num = new Num();
-$ndarray = $num->ndarray([[3.2, 1.5, 1], [2.5, 4, 2]]);
+$ndarray = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 $num->min($ndarray); // returns 1
 ~~~
 
@@ -318,6 +318,6 @@ amax: *Double*
 
 ~~~
 $num = new Num();
-$ndarray = $num->ndarray([[3.2, 1.5, 1], [2.5, 4, 2]]);
+$ndarray = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 $num->amax($ndarray); // returns 4
 ~~~

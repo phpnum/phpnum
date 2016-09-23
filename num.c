@@ -58,7 +58,7 @@ double num_min(double val1, double val2) {
     return val1 > val2 ? val2 : val1;
 }
 
-ZEND_METHOD(num, ndarray)
+ZEND_METHOD(num, array)
 {
     zval *data, ret, obj;
     if( zend_parse_parameters(ZEND_NUM_ARGS(), "z", &data) == FAILURE ) {
@@ -95,7 +95,7 @@ ZEND_METHOD(num_ndarray, amax)
 
 static zend_function_entry num_methods[]=
 {
-    ZEND_ME(num, ndarray, NULL, ZEND_ACC_PUBLIC)
+    ZEND_ME(num, array, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, amin, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, amax, NULL, ZEND_ACC_PUBLIC)
     ZEND_FE_END

@@ -137,13 +137,10 @@ ZEND_METHOD(num_ndarray, getSize)
 
 ZEND_METHOD(num_ndarray, __toString)
 {
-    double x;
-    x = max(7.5, 8.7);
-    php_printf("%f\n", x);
     zval *data = zend_read_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
     zval level, ret, prefix, suffix;
     ZVAL_LONG(&level, 0);
-    ZVAL_STRING(&prefix, "Ndarray(");
+    ZVAL_STRING(&prefix, "array(");
     ZVAL_STRING(&suffix, ")\n");
     zend_call_method_with_2_params(getThis(), num_ndarray_ce, NULL, "_to_string", &ret, data, &level);
     concat_function(return_value, return_value, &prefix);
