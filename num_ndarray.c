@@ -91,6 +91,45 @@ int num_ndarray_self_recursive(zval *ret, zval *data, num_func_t num_func){
     return SUCCESS;
 }
 
+zend_string *num_ndarray_to_string(zval *data, zend_long level){
+    zend_string *space, *ret;
+    zval *first, *val, tmp;
+    smart_str output = {0};
+    HashPosition pointer = 0;
+    HashTable *ht;
+    ulong idx;
+    zend_string *delim;
+    delim = zend_string_init(ZEND_STRL(","), 0);
+    if (Z_TYPE_P(data) != IS_ARRAY) {
+        return zend_string_init(ZEND_STRL(Z_STRVAL_P(data)), 0);
+    }
+    space = strpprintf(0, "%*c", level, ' ');
+    ht = Z_ARRVAL_P(data);
+    first = zend_hash_get_current_data_ex(ht, &pointer);
+    if (Z_TYPE_P(first) == IS_ARRAY) {
+        smart_str_sets(&output, ZSTR_VAL(space));
+        smart_str_appends(&output, "[\n");
+        ZEND_HASH_FOREACH_NUM_KEY_VAL(ht, idx, val) {
+            ret = num_ndarray_to_string(val, level + 2);
+            smart_str_appends(&output, ZSTR_VAL(ret));
+            if (idx + 1 < zend_array_count(ht)) {
+                smart_str_appends(&output, ",\n");
+            } else {
+                smart_str_appends(&output, "\n");
+                smart_str_appends(&output, ZSTR_VAL(space));
+                smart_str_appends(&output, "]");
+            }
+        } ZEND_HASH_FOREACH_END();
+    } else {
+        smart_str_appends(&output, ZSTR_VAL(space));
+        smart_str_appends(&output, "[");
+        php_implode(delim, data, &tmp);
+        smart_str_appends(&output, Z_STRVAL(tmp));
+        smart_str_appends(&output, "]");
+    }
+    return output.s;
+}
+
 ZEND_METHOD(num_ndarray, __construct)
 {
     zval *data, shape;
@@ -139,59 +178,14 @@ ZEND_METHOD(num_ndarray, getSize)
 
 ZEND_METHOD(num_ndarray, __toString)
 {
-    zval level, ret;
+    zend_string *ret;
     smart_str output = {0};
     zval *data = zend_read_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    ZVAL_LONG(&level, 1);
-    zend_call_method_with_2_params(getThis(), num_ndarray_ce, NULL, "_to_string", &ret, data, &level);
+    ret = num_ndarray_to_string(data, 0);
     smart_str_appends(&output, "array(");
-    smart_str_appends(&output, Z_STRVAL(ret));
+    smart_str_appends(&output, ZSTR_VAL(ret));
     smart_str_appends(&output, ")\n");
     smart_str_0(&output);
-    RETURN_STRING(ZSTR_VAL(output.s));
-}
-
-ZEND_METHOD(num_ndarray, _to_string)
-{
-    zend_string *space;
-    zval *data, *level, *first, ret, *val;
-    smart_str output = {0};
-    HashPosition pointer = 0;
-    HashTable *ht;
-    ulong idx;
-    zend_string *delim;
-    delim = zend_string_init(ZEND_STRL(","), 0);
-    if( zend_parse_method_parameters(ZEND_NUM_ARGS(), NULL, "z|z", &data, &level) == FAILURE ) {
-        RETURN_NULL();
-    }
-    if (Z_TYPE_P(data) != IS_ARRAY) {
-        RETURN_ZVAL(data, 1, 0);
-    }
-    space = strpprintf(0, "%*c", Z_LVAL_P(level), ' ');
-    ht = Z_ARRVAL_P(data);
-    first = zend_hash_get_current_data_ex(ht, &pointer);
-    if (Z_TYPE_P(first) == IS_ARRAY) {
-        smart_str_sets(&output, ZSTR_VAL(space));
-        smart_str_appends(&output, "[\n");
-        Z_LVAL_P(level) += 2;
-        ZEND_HASH_FOREACH_NUM_KEY_VAL(ht, idx, val) {
-            zend_call_method_with_2_params(getThis(), num_ndarray_ce, NULL, "_to_string", &ret, val, level);
-            smart_str_appends(&output, Z_STRVAL(ret));
-            if (idx + 1 < zend_array_count(ht)) {
-                smart_str_appends(&output, ",\n");
-            } else {
-                smart_str_appends(&output, "\n");
-                smart_str_appends(&output, ZSTR_VAL(space));
-                smart_str_appends(&output, "]");
-            }
-        } ZEND_HASH_FOREACH_END();
-    } else {
-        smart_str_appends(&output, ZSTR_VAL(space));
-        smart_str_appends(&output, "[");
-        php_implode(delim, data, return_value);
-        smart_str_appends(&output, Z_STRVAL_P(return_value));
-        smart_str_appends(&output, "]");
-    }
     RETURN_STRING(ZSTR_VAL(output.s));
 }
 
@@ -278,12 +272,11 @@ ZEND_METHOD(num_ndarray, div)
 zend_function_entry num_ndarray_methods[]=
 {
     ZEND_ME(num_ndarray, __construct, NULL, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
+    ZEND_ME(num_ndarray, __toString, NULL, ZEND_ACC_PUBLIC )
     ZEND_ME(num_ndarray, getData, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, getShape, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, getNdim, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, getSize, NULL, ZEND_ACC_PUBLIC)
-    ZEND_ME(num_ndarray, __toString, NULL, ZEND_ACC_PUBLIC )
-    ZEND_ME(num_ndarray, _to_string, NULL, ZEND_ACC_PROTECTED)
     ZEND_ME(num_ndarray, add, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, sub, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, mult, NULL, ZEND_ACC_PUBLIC)
