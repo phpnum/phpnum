@@ -116,7 +116,7 @@ data: *Array*
 
 ~~~
 $ndarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
-$numNdarray->getData(); // returns array(array(1.0, 2, 3), array(2, 3, 4))
+$ndarray->getData(); // returns array(array(1.0, 2, 3), array(2, 3, 4))
 ~~~
 
 ### getShape
@@ -133,7 +133,7 @@ shape: *Array*
 
 ~~~
 $ndarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
-$numNdarray->getShape(); // returns array(2, 3)
+$ndarray->getShape(); // returns array(2, 3)
 ~~~
 
 ### getNdim
@@ -150,7 +150,7 @@ ndim: *LONG*
 
 ~~~
 $ndarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
-$numNdarray->getNdim(); // returns 2
+$ndarray->getNdim(); // returns 2
 ~~~
 
 ### getSize
@@ -167,7 +167,7 @@ size: *LONG*
 
 ~~~
 $ndarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
-$numNdarray->getSize(); // returns 6
+$ndarray->getSize(); // returns 6
 ~~~
 
 
@@ -197,7 +197,7 @@ $a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->add($b);
 /* output:
-Ndarray([
+array([
   [4.2,3.5,4],
   [4.5,7,6]
 ])
@@ -222,7 +222,7 @@ $a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->sub($b);
 /* output:
-Ndarray([
+array([
   [-2.2,0.5,2],
   [-0.5,-1,2]
 ])
@@ -247,7 +247,7 @@ $a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->mult($b);
 /* output:
-Ndarray([
+array([
   [3.2,3,3],
   [5,12,8]
 ])
@@ -272,7 +272,7 @@ $a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->div($b);
 /* output:
-Ndarray([
+array([
   [0.3125,1.3333333333333,3],
   [0.8,0.75,2]
 ])
