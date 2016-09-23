@@ -287,24 +287,6 @@ ZEND_METHOD(num_ndarray, div)
     RETURN_ZVAL(self, 1, 0);
 }
 
-ZEND_METHOD(num_ndarray, max)
-{
-    zval *val, ret;
-    ZVAL_NULL(&ret);
-    zval *data = zend_read_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    num_ndarray_self_recursive(&ret, data, num_max);
-    RETURN_ZVAL(&ret, 1, 0);
-}
-
-ZEND_METHOD(num_ndarray, min)
-{
-    zval *val, ret;
-    ZVAL_NULL(&ret);
-    zval *data = zend_read_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    num_ndarray_self_recursive(&ret, data, num_min);
-    RETURN_ZVAL(&ret, 1, 0);
-}
-
 zend_function_entry num_ndarray_methods[]=
 {
     ZEND_ME(num_ndarray, __construct, NULL, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
@@ -318,8 +300,6 @@ zend_function_entry num_ndarray_methods[]=
     ZEND_ME(num_ndarray, sub, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, mult, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, div, NULL, ZEND_ACC_PUBLIC)
-    ZEND_ME(num_ndarray, max, NULL, ZEND_ACC_PUBLIC)
-    ZEND_ME(num_ndarray, min, NULL, ZEND_ACC_PUBLIC)
     ZEND_FE_END
 };
 

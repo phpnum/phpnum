@@ -15,6 +15,7 @@ A PHP extension for scientific computing. Inspired by [NumPy](https://github.com
    * [Usage](#usage)
    * [Characteristics](#characteristics)
    * [Arithmetic Operations](#arithmetic-operations)
+   * [Statistics](#statistics)
 
 -----
 
@@ -44,7 +45,7 @@ make && make install
 
 1. [Class Num](#class-num) - Creates a Num object
 2. [Class NumNdarray](#class-numndarray) - Creates a N-dimensional array (ndarray) object
-3. [Printing](#printing) - Prints a ndarray object
+3. [Printing](#printing) - Prints a ndarray: *Object*
 
 ### Class Num
 -----
@@ -70,10 +71,10 @@ _**Description**_: Creates a N-dimensional array (ndarray) object
 ##### *Example*
 
 ~~~
-$numNdarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
+$ndarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
 /* equivalent to: */
 $num = new Num();
-$numNdarray = $num->ndarray([[1.0, 2, 3], [2, 3, 4]]);
+$ndarray = $num->ndarray([[1.0, 2, 3], [2, 3, 4]]);
 ~~~
 ### Printing
 -----
@@ -82,8 +83,8 @@ _**Description**_: Prints a ndarray object
 ##### *Example*
 
 ~~~
-$numNdarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
-echo $numNdarray;
+$ndarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
+echo $ndarray;
 /* output: 
 Ndarray([
   [1,2,3],
@@ -109,12 +110,12 @@ _**Description**_: Data of the ndarray
 None
 
 ##### *Return value*
-*Array*
+data: *Array*
 
 ##### *Example*
 
 ~~~
-$numNdarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
+$ndarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
 $numNdarray->getData(); // returns array(array(1.0, 2, 3), array(2, 3, 4))
 ~~~
 
@@ -126,12 +127,12 @@ _**Description**_: Shape of ndarray dimensions
 None
 
 ##### *Return value*
-*Array*
+shape: *Array*
 
 ##### *Example*
 
 ~~~
-$numNdarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
+$ndarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
 $numNdarray->getShape(); // returns array(2, 3)
 ~~~
 
@@ -143,12 +144,12 @@ _**Description**_: Number of ndarray dimensions
 None
 
 ##### *Return value*
-*LONG*
+ndim: *LONG*
 
 ##### *Example*
 
 ~~~
-$numNdarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
+$ndarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
 $numNdarray->getNdim(); // returns 2
 ~~~
 
@@ -160,12 +161,12 @@ _**Description**_: Number of elements in the ndarray
 None
 
 ##### *Return value*
-*LONG*
+size: *LONG*
 
 ##### *Example*
 
 ~~~
-$numNdarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
+$ndarray = new NumNdarray([[1.0, 2, 3], [2, 3, 4]]);
 $numNdarray->getSize(); // returns 6
 ~~~
 
@@ -183,10 +184,10 @@ $numNdarray->getSize(); // returns 6
 _**Description**_: Add a ndarray to an other ndarray
 
 ##### *Parameters*
-ndarray object
+ndarray: *Object*
 
 ##### *Return value*
-ndarray object
+ndarray: *Object*
 
 ##### *Example*
 
@@ -208,10 +209,10 @@ Ndarray([
 _**Description**_: Subtract a ndarray from an other ndarray
 
 ##### *Parameters*
-ndarray object
+ndarray: *Object*
 
 ##### *Return value*
-ndarray object
+ndarray: *Object*
 
 ##### *Example*
 
@@ -233,10 +234,10 @@ Ndarray([
 _**Description**_: Multiply a ndarray by an other ndarray
 
 ##### *Parameters*
-ndarray object
+ndarray: *Object*
 
 ##### *Return value*
-ndarray object
+ndarray: *Object*
 
 ##### *Example*
 
@@ -258,10 +259,10 @@ Ndarray([
 _**Description**_: A ndarray divided by an other ndarray
 
 ##### *Parameters*
-ndarray object
+ndarray: *Object*
 
 ##### *Return value*
-ndarray object
+ndarray: *Object*
 
 ##### *Example*
 
@@ -276,4 +277,47 @@ Ndarray([
   [0.8,0.75,2]
 ])
 */
+~~~
+
+
+
+## Statistics
+
+1. [amin](#amin) - Return the minimum of a ndarray
+2. [amax](#amin) - Return the maximum of a ndarray
+
+### amin
+-----
+_**Description**_: Return the minimum of a ndarray
+
+##### *Parameters*
+ndarray: *Object*
+
+##### *Return value*
+amin: *Double*
+
+##### *Example*
+
+~~~
+$num = new Num();
+$ndarray = $num->ndarray([[3.2, 1.5, 1], [2.5, 4, 2]]);
+$num->min($ndarray); // returns 1
+~~~
+
+### amax
+-----
+_**Description**_: Return the maximum of a ndarray
+
+##### *Parameters*
+ndarray: *Object*
+
+##### *Return value*
+amax: *Double*
+
+##### *Example*
+
+~~~
+$num = new Num();
+$ndarray = $num->ndarray([[3.2, 1.5, 1], [2.5, 4, 2]]);
+$num->amax($ndarray); // returns 4
 ~~~

@@ -69,9 +69,35 @@ ZEND_METHOD(num, ndarray)
     RETURN_ZVAL(&ret, 1, 0);
 }
 
+ZEND_METHOD(num_ndarray, amin)
+{
+    zval *ce, ret;
+    ZVAL_NULL(&ret);
+    if( zend_parse_parameters(ZEND_NUM_ARGS(), "z", &ce) == FAILURE ) {
+        RETURN_NULL();
+    }
+    zval *data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
+    num_ndarray_self_recursive(&ret, data, num_min);
+    RETURN_ZVAL(&ret, 1, 0);
+}
+
+ZEND_METHOD(num_ndarray, amax)
+{
+    zval *ce, ret;
+    ZVAL_NULL(&ret);
+    if( zend_parse_parameters(ZEND_NUM_ARGS(), "z", &ce) == FAILURE ) {
+        RETURN_NULL();
+    }
+    zval *data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
+    num_ndarray_self_recursive(&ret, data, num_max);
+    RETURN_ZVAL(&ret, 1, 0);
+}
+
 static zend_function_entry num_methods[]=
 {
     ZEND_ME(num, ndarray, NULL, ZEND_ACC_PUBLIC)
+    ZEND_ME(num_ndarray, amin, NULL, ZEND_ACC_PUBLIC)
+    ZEND_ME(num_ndarray, amax, NULL, ZEND_ACC_PUBLIC)
     ZEND_FE_END
 };
 
