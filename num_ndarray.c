@@ -26,6 +26,8 @@
 #include "php_num.h"
 #include "num_ndarray.h"
 
+#include "zend_smart_str.h"
+
 zend_class_entry *num_ndarray_ce;
 
 zval* num_calc_shape(zval *data, zval *shape, zend_long dimension){
@@ -137,71 +139,60 @@ ZEND_METHOD(num_ndarray, getSize)
 
 ZEND_METHOD(num_ndarray, __toString)
 {
+    zval level, ret;
+    smart_str output = {0};
     zval *data = zend_read_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    zval level, ret, prefix, suffix;
-    ZVAL_LONG(&level, 0);
-    ZVAL_STRING(&prefix, "array(");
-    ZVAL_STRING(&suffix, ")\n");
+    ZVAL_LONG(&level, 1);
     zend_call_method_with_2_params(getThis(), num_ndarray_ce, NULL, "_to_string", &ret, data, &level);
-    concat_function(return_value, return_value, &prefix);
-    concat_function(return_value, return_value, &ret);
-    concat_function(return_value, return_value, &suffix);
+    smart_str_appends(&output, "array(");
+    smart_str_appends(&output, Z_STRVAL(ret));
+    smart_str_appends(&output, ")\n");
+    smart_str_0(&output);
+    RETURN_STRING(ZSTR_VAL(output.s));
 }
 
 ZEND_METHOD(num_ndarray, _to_string)
 {
-    zval *data, *level, *first, output, tmp, *row, ret, *val, function, params[2], spaces;
+    zend_string *space;
+    zval *data, *level, *first, ret, *val;
+    smart_str output = {0};
     HashPosition pointer = 0;
     HashTable *ht;
     ulong idx;
     zend_string *delim;
     delim = zend_string_init(ZEND_STRL(","), 0);
-
     if( zend_parse_method_parameters(ZEND_NUM_ARGS(), NULL, "z|z", &data, &level) == FAILURE ) {
         RETURN_NULL();
     }
     if (Z_TYPE_P(data) != IS_ARRAY) {
         RETURN_ZVAL(data, 1, 0);
     }
-
-    ZVAL_STRING(&params[0], "  ");
-    ZVAL_LONG(&params[1], Z_LVAL_P(level));
-    ZVAL_STRING(&function, "str_repeat");
-    call_user_function(EG(function_table), NULL, &function, &spaces, 2, params);
-    ZVAL_STRING(&output, "");
-
+    space = strpprintf(0, "%*c", Z_LVAL_P(level), ' ');
     ht = Z_ARRVAL_P(data);
     first = zend_hash_get_current_data_ex(ht, &pointer);
     if (Z_TYPE_P(first) == IS_ARRAY) {
-        ZVAL_STRING(&output, Z_STRVAL(spaces));
-        ZVAL_STRING(&tmp, "[\n");
-        concat_function(&output, &output, &tmp);
-        Z_LVAL_P(level) += 1;
+        smart_str_sets(&output, ZSTR_VAL(space));
+        smart_str_appends(&output, "[\n");
+        Z_LVAL_P(level) += 2;
         ZEND_HASH_FOREACH_NUM_KEY_VAL(ht, idx, val) {
             zend_call_method_with_2_params(getThis(), num_ndarray_ce, NULL, "_to_string", &ret, val, level);
-            concat_function(&output, &output, &ret);
+            smart_str_appends(&output, Z_STRVAL(ret));
             if (idx + 1 < zend_array_count(ht)) {
-                ZVAL_STRING(&tmp, ",\n");
+                smart_str_appends(&output, ",\n");
             } else {
-                ZVAL_STRING(&tmp, "\n");
-                concat_function(&output, &output, &tmp);
-                concat_function(&output, &output, &spaces);
-                ZVAL_STRING(&tmp, "]");
+                smart_str_appends(&output, "\n");
+                smart_str_appends(&output, ZSTR_VAL(space));
+                smart_str_appends(&output, "]");
             }
-            concat_function(&output, &output, &tmp);
         } ZEND_HASH_FOREACH_END();
     } else {
-        concat_function(&output, &output, &spaces);
-        ZVAL_STRING(&tmp, "[");
-        concat_function(&output, &output, &tmp);
+        smart_str_appends(&output, ZSTR_VAL(space));
+        smart_str_appends(&output, "[");
         php_implode(delim, data, return_value);
-        tmp = *return_value;
-        concat_function(&output, &output, &tmp);
-        ZVAL_STRING(&tmp, "]");
-        concat_function(&output, &output, &tmp);
+        smart_str_appends(&output, Z_STRVAL_P(return_value));
+        smart_str_appends(&output, "]");
     }
-    zval_ptr_dtor(&tmp);
-    RETURN_STRING(Z_STRVAL(output));
+    RETURN_STRING(ZSTR_VAL(output.s));
 }
 
 ZEND_METHOD(num_ndarray, add)

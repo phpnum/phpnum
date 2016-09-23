@@ -107,7 +107,6 @@ PHP_MINIT_FUNCTION(num)
     INIT_CLASS_ENTRY(ce, "Num", num_methods);
     zend_register_internal_class(&ce TSRMLS_CC);
     NUM_STARTUP(ndarray);
-    //NUM_STARTUP(shape);
     
     return SUCCESS;
 }
