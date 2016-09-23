@@ -38,6 +38,9 @@ extern zend_module_entry num_module_entry;
 #include "TSRM.h"
 #endif
 
+#define max(a,b) ( ((a)>(b)) ? (a):(b) )
+#define min(a,b) ( ((a)>(b)) ? (b):(a) )
+
 #define NUM_STARTUP_FUNCTION(module)    ZEND_MINIT_FUNCTION(num_##module)
 #define NUM_RINIT_FUNCTION(module)    ZEND_RINIT_FUNCTION(num_##module)
 #define NUM_STARTUP(module)         ZEND_MODULE_STARTUP_N(num_##module)(INIT_FUNC_ARGS_PASSTHRU)
@@ -45,6 +48,15 @@ extern zend_module_entry num_module_entry;
 #define NUM_SHUTDOWN(module)        ZEND_MODULE_SHUTDOWN_N(num_##module)(INIT_FUNC_ARGS_PASSTHRU)
 
 extern zend_class_entry *num_ce;
+
+typedef double (*num_func_t)(double val1, double val2);
+
+double num_operator_add(double val1, double val2);
+double num_operator_sub(double val1, double val2);
+double num_operator_mult(double val1, double val2);
+double num_operator_div(double val1, double val2);
+double num_max(double val1, double val2);
+double num_min(double val1, double val2);
 
 /*
   	Declare any global variables you may need between the BEGIN

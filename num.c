@@ -34,6 +34,30 @@ zend_class_entry *num_ce;
 ZEND_DECLARE_MODULE_GLOBALS(num)
 */
 
+double num_operator_add(double val1, double val2) {
+    return val1 + val2;
+}
+
+double num_operator_sub(double val1, double val2) {
+    return val1 - val2;
+}
+
+double num_operator_mult(double val1, double val2) {
+    return val1 * val2;
+}
+
+double num_operator_div(double val1, double val2) {
+    return val1 / val2;
+}
+
+double num_max(double val1, double val2) {
+    return val1 > val2 ? val1 : val2;
+}
+
+double num_min(double val1, double val2) {
+    return val1 > val2 ? val2 : val1;
+}
+
 ZEND_METHOD(num, ndarray)
 {
     zval *data, ret, obj;

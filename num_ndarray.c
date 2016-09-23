@@ -49,23 +49,7 @@ zval* num_calc_shape(zval *data, zval *shape, zend_long dimension){
     }
 }
 
-double num_operator_add(double val1, double val2) {
-    return val1 + val2;
-}
-
-double num_operator_sub(double val1, double val2) {
-    return val1 - val2;
-}
-
-double num_operator_mult(double val1, double val2) {
-    return val1 * val2;
-}
-
-double num_operator_div(double val1, double val2) {
-    return val1 / val2;
-}
-
-int num_recursive(zval *data1, zval *data2, num_func_t num_func){
+int num_ndarray_recursive(zval *data1, zval *data2, num_func_t num_func){
     zval *val1, *val2;
     zend_ulong idx;
     HashTable *ht1, *ht2;
@@ -75,11 +59,30 @@ int num_recursive(zval *data1, zval *data2, num_func_t num_func){
         ZEND_HASH_FOREACH_NUM_KEY_VAL(ht1, idx, val1) {
             val2 = zend_hash_index_find(ht2, idx);
             if (Z_TYPE_P(val1) == IS_ARRAY) {
-                num_recursive(val1, val2, num_func);
+                num_ndarray_recursive(val1, val2, num_func);
             } else {
                 convert_to_double(val1);
                 convert_to_double(val2);
                 ZVAL_DOUBLE(val1, num_func(Z_DVAL_P(val1), Z_DVAL_P(val2)));
+            }
+        } ZEND_HASH_FOREACH_END();
+    }
+    return SUCCESS;
+}
+
+int num_ndarray_self_recursive(zval *ret, zval *data, num_func_t num_func){
+    zval *val;
+    if (Z_TYPE_P(data) == IS_ARRAY) {
+        ZEND_HASH_FOREACH_VAL(Z_ARR_P(data), val) {
+            if (Z_TYPE_P(val) == IS_ARRAY) {
+                num_ndarray_self_recursive(ret, val, num_func);
+            } else {
+                convert_to_double(val);
+                if (Z_TYPE_P(ret) == IS_NULL) {
+                    ZVAL_DOUBLE(ret, Z_DVAL_P(val));
+                } else {
+                    ZVAL_DOUBLE(ret, num_func(Z_DVAL_P(ret), Z_DVAL_P(val)));
+                }
             }
         } ZEND_HASH_FOREACH_END();
     }
@@ -134,6 +137,9 @@ ZEND_METHOD(num_ndarray, getSize)
 
 ZEND_METHOD(num_ndarray, __toString)
 {
+    double x;
+    x = max(7.5, 8.7);
+    php_printf("%f\n", x);
     zval *data = zend_read_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
     zval level, ret, prefix, suffix;
     ZVAL_LONG(&level, 0);
@@ -217,7 +223,7 @@ ZEND_METHOD(num_ndarray, add)
     }
     zval *data1 = zend_read_property(num_ndarray_ce, self, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
     zval *data2 = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    num_recursive(data1, data2, num_operator_add);
+    num_ndarray_recursive(data1, data2, num_operator_add);
     RETURN_ZVAL(self, 1, 0);
 }
 
@@ -237,7 +243,7 @@ ZEND_METHOD(num_ndarray, sub)
     }
     zval *data1 = zend_read_property(num_ndarray_ce, self, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
     zval *data2 = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    num_recursive(data1, data2, num_operator_sub);
+    num_ndarray_recursive(data1, data2, num_operator_sub);
     RETURN_ZVAL(self, 1, 0);
 }
 
@@ -257,7 +263,7 @@ ZEND_METHOD(num_ndarray, mult)
     }
     zval *data1 = zend_read_property(num_ndarray_ce, self, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
     zval *data2 = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    num_recursive(data1, data2, num_operator_mult);
+    num_ndarray_recursive(data1, data2, num_operator_mult);
     RETURN_ZVAL(self, 1, 0);
 }
 
@@ -277,8 +283,26 @@ ZEND_METHOD(num_ndarray, div)
     }
     zval *data1 = zend_read_property(num_ndarray_ce, self, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
     zval *data2 = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    num_recursive(data1, data2, num_operator_div);
+    num_ndarray_recursive(data1, data2, num_operator_div);
     RETURN_ZVAL(self, 1, 0);
+}
+
+ZEND_METHOD(num_ndarray, max)
+{
+    zval *val, ret;
+    ZVAL_NULL(&ret);
+    zval *data = zend_read_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
+    num_ndarray_self_recursive(&ret, data, num_max);
+    RETURN_ZVAL(&ret, 1, 0);
+}
+
+ZEND_METHOD(num_ndarray, min)
+{
+    zval *val, ret;
+    ZVAL_NULL(&ret);
+    zval *data = zend_read_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
+    num_ndarray_self_recursive(&ret, data, num_min);
+    RETURN_ZVAL(&ret, 1, 0);
 }
 
 zend_function_entry num_ndarray_methods[]=
@@ -294,6 +318,8 @@ zend_function_entry num_ndarray_methods[]=
     ZEND_ME(num_ndarray, sub, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, mult, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, div, NULL, ZEND_ACC_PUBLIC)
+    ZEND_ME(num_ndarray, max, NULL, ZEND_ACC_PUBLIC)
+    ZEND_ME(num_ndarray, min, NULL, ZEND_ACC_PUBLIC)
     ZEND_FE_END
 };
 
