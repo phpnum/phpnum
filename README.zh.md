@@ -2,54 +2,53 @@
 
 [![Build Status](https://travis-ci.org/phpnum/phpnum.svg?branch=master)](https://travis-ci.org/phpnum/phpnum)
 
-A PHP extension for scientific computing. Inspired by [NumPy](https://github.com/numpy/numpy) & [NumPHP](https://github.com/NumPHP/NumPHP).
+PHP科学计算扩展。灵感源自 [NumPy](https://github.com/numpy/numpy) & [NumPHP](https://github.com/NumPHP/NumPHP)。
 
 
 
-# Table of contents
+# 文档目录
 -----
-1. [Installing/Configuring](#installingconfiguring)
-   * [Requirement](#requirement)
-   * [Installation](#installation)
-2. [Classes and methods](#classes-and-methods)
-   * [Usage](#usage)
-   * [Characteristics](#characteristics)
-   * [Arithmetic Operations](#arithmetic-operations)
-   * [Statistics](#statistics)
+1. [安装/配置](#installingconfiguring)
+   * [需求](#requirement)
+   * [安装](#installation)
+2. [类和方法](#classes-and-methods)
+   * [基本用法](#usage)
+   * [属性](#characteristics)
+   * [运算](#arithmetic-operations)
+   * [统计](#statistics)
 
------
-
-# Installing/Configuring
 -----
 
-Everything you should need to install phpnum on your system.
+# 安装/配置
+-----
 
-## requirement
+## 需求
 - PHP 7 +
 
-## Installation
+## 安装
 
+下载phpnum最新版本，解压缩后，进入phpnum源码目录, 依次执行（其中PHP_BIN是PHP的bin目录）
 ~~~
-phpize
-./configure
+$PHP_BIN/phpize
+./configure --with-php-config=$PHP_BIN/php-config
 make && make install
 ~~~
 
-`make install` copies `num.so` to an appropriate location, but you still need to enable the module in the PHP config file. To do so, either edit your php.ini or add a num.ini file in `/path/to/php.d` with the following contents: `extension=num.so`.
+在php.ini中载入num.so，重启PHP。
 
-# Classes and methods
+# 类和方法
 
 -----
 
-## Usage
+## 基本用法
 
-1. [Class Num](#class-num) - Creates a Num object
-2. [Class NumNdarray](#class-numndarray) - Creates a N-dimensional array (ndarray) object
-3. [Printing](#printing) - Prints a ndarray object
+1. [Num类](#class-num) - 创建Num对象
+2. [NumNdarray类](#class-numndarray) - 创建N维数组对象
+3. [打印输出](#printing) - 输出N维数组对象
 
 ### Class Num
 -----
-_**Description**_: Creates a Num object
+_**Description**_: 创建Num对象
 
 ##### *Example*
 
@@ -59,7 +58,7 @@ $num = new Num();
 
 ### Class NumNdarray
 -----
-_**Description**_: Creates a N-dimensional array (ndarray) object
+_**Description**_: 创建N维数组对象
 
 ##### *Parameters*
 array: *Array*
@@ -76,7 +75,7 @@ $ndarray = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 ~~~
 ### Printing
 -----
-_**Description**_: Prints a ndarray object
+_**Description**_: 输出N维数组对象
 
 ##### *Example*
 
@@ -94,16 +93,16 @@ array([
 
 
 
-## Characteristics
+## 属性
 
-1. [getData](#getdata) - Data of the ndarray
-2. [getShape](#getshape) - Shape of ndarray dimensions
-3. [getNdim](#getndim) - Number of ndarray dimensions
-4. [getSize](#getsize) - Number of elements in the ndarray
+1. [getData](#getdata) - 获取N维数组的原始数据
+2. [getShape](#getshape) - 获取N维数组的各维度大小
+3. [getNdim](#getndim) - 获取N维数组的维度
+4. [getSize](#getsize) - 获取N维数组的元素个数
 
 ### getData
 -----
-_**Description**_: Data of the ndarray
+_**Description**_: 获取N维数组的原始数据
 
 ##### *Parameters*
 None
@@ -121,7 +120,7 @@ $ndarray->getData(); // returns array(array(1.0, 2, 3), array(2, 3, 4))
 
 ### getShape
 -----
-_**Description**_: Shape of ndarray dimensions
+_**Description**_: 获取N维数组的各维度大小
 
 ##### *Parameters*
 None
@@ -139,7 +138,7 @@ $ndarray->getShape(); // returns array(2, 3)
 
 ### getNdim
 -----
-_**Description**_: Number of ndarray dimensions
+_**Description**_: 获取N维数组的维度
 
 ##### *Parameters*
 None
@@ -157,7 +156,7 @@ $ndarray->getNdim(); // returns 2
 
 ### getSize
 -----
-_**Description**_: Number of elements in the ndarray
+_**Description**_: 获取N维数组的元素个数
 
 ##### *Parameters*
 None
@@ -175,16 +174,16 @@ $ndarray->getSize(); // returns 6
 
 
 
-## Arithmetic Operations
+## 运算
 
-1. [add](#add) - Add a ndarray to an other ndarray
-2. [sub](#sub) - Subtract a ndarray from an other ndarray
-3. [mult](#mult) - Multiply a ndarray by an other ndarray
-4. [div](#div) - A ndarray divided by an other ndarray
+1. [add](#add) - 加上N维数组
+2. [sub](#sub) - 减去N维数组
+3. [mult](#mult) - 乘以N维数组
+4. [div](#div) - 除以N维数组
 
 ### add
 -----
-_**Description**_: Add a ndarray to an other ndarray
+_**Description**_: 加上N维数组
 
 ##### *Parameters*
 ndarray: *Object*
@@ -209,7 +208,7 @@ array([
 
 ### sub
 -----
-_**Description**_: Subtract a ndarray from an other ndarray
+_**Description**_: 减去N维数组
 
 ##### *Parameters*
 ndarray: *Object*
@@ -234,7 +233,7 @@ array([
 
 ### mult
 -----
-_**Description**_: Multiply a ndarray by an other ndarray
+_**Description**_: 乘以N维数组
 
 ##### *Parameters*
 ndarray: *Object*
@@ -259,7 +258,7 @@ array([
 
 ### div
 -----
-_**Description**_: A ndarray divided by an other ndarray
+_**Description**_: 除以N维数组
 
 ##### *Parameters*
 ndarray: *Object*
@@ -284,14 +283,14 @@ array([
 
 
 
-## Statistics
+## 统计
 
-1. [amin](#amin) - Return the minimum of a ndarray
-2. [amax](#amin) - Return the maximum of a ndarray
+1. [amin](#amin) - 获取N维数组的最小元素
+2. [amax](#amin) - 获取N维数组的最大元素
 
 ### amin
 -----
-_**Description**_: Return the minimum of a ndarray
+_**Description**_: 获取N维数组的最小元素
 
 ##### *Parameters*
 ndarray: *Object*
@@ -309,7 +308,7 @@ $num->min($ndarray); // returns 1
 
 ### amax
 -----
-_**Description**_: Return the maximum of a ndarray
+_**Description**_: 获取N维数组的最大元素
 
 ##### *Parameters*
 ndarray: *Object*
