@@ -8,14 +8,14 @@ PHP科学计算扩展。灵感源自 [NumPy](https://github.com/numpy/numpy) & [
 
 # 文档目录
 -----
-1. [安装/配置](#installingconfiguring)
-   * [需求](#requirement)
-   * [安装](#installation)
-2. [类和方法](#classes-and-methods)
-   * [基本用法](#usage)
-   * [属性](#characteristics)
-   * [运算](#arithmetic-operations)
-   * [统计](#statistics)
+1. [安装/配置](#安装配置)
+   * [需求](#需求)
+   * [安装](#安装)
+2. [类与方法](#类与方法)
+   * [基本用法](#基本用法)
+   * [属性](#属性)
+   * [运算](#运算)
+   * [统计](#统计)
 
 -----
 
@@ -36,21 +36,21 @@ make && make install
 
 在php.ini中载入num.so，重启PHP。
 
-# 类和方法
+# 类与方法
 
 -----
 
 ## 基本用法
 
-1. [Num类](#class-num) - 创建Num对象
-2. [NumNdarray类](#class-numndarray) - 创建N维数组对象
-3. [打印输出](#printing) - 输出N维数组对象
+1. [Class Num](#class-num) - 创建Num对象
+2. [Class NumNdarray](#class-numndarray) - 创建数组对象
+3. [Printing](#printing) - 输出数组对象
 
 ### Class Num
 -----
-_**Description**_: 创建Num对象
+_**说明**_: 创建Num对象
 
-##### *Example*
+##### *范例*
 
 ~~~
 $num = new Num();
@@ -58,16 +58,16 @@ $num = new Num();
 
 ### Class NumNdarray
 -----
-_**Description**_: 创建N维数组对象
+_**说明**_: 创建数组对象
 
-##### *Parameters*
+##### *参数*
 array: *Array*
 
-##### *Return value*
+##### *返回值*
 
 ndarray: *Object*
 
-##### *Example*
+##### *范例*
 
 ~~~
 $num = new Num();
@@ -75,9 +75,9 @@ $ndarray = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 ~~~
 ### Printing
 -----
-_**Description**_: 输出N维数组对象
+_**说明**_: 输出数组对象
 
-##### *Example*
+##### *范例*
 
 ~~~
 $num = new Num();
@@ -95,22 +95,22 @@ array([
 
 ## 属性
 
-1. [getData](#getdata) - 获取N维数组的原始数据
-2. [getShape](#getshape) - 获取N维数组的各维度大小
-3. [getNdim](#getndim) - 获取N维数组的维度
-4. [getSize](#getsize) - 获取N维数组的元素个数
+1. [getData](#getdata) - 获取数组对象的原始数据
+2. [getShape](#getshape) - 获取数组对象的各维度大小
+3. [getNdim](#getndim) - 获取数组对象的维度
+4. [getSize](#getsize) - 获取数组对象的元素个数
 
 ### getData
 -----
-_**Description**_: 获取N维数组的原始数据
+_**说明**_: 获取数组对象的原始数据
 
-##### *Parameters*
+##### *参数*
 None
 
-##### *Return value*
+##### *返回值*
 data: *Array*
 
-##### *Example*
+##### *范例*
 
 ~~~
 $num = new Num();
@@ -120,15 +120,15 @@ $ndarray->getData(); // returns array(array(1.0, 2, 3), array(2, 3, 4))
 
 ### getShape
 -----
-_**Description**_: 获取N维数组的各维度大小
+_**说明**_: 获取数组对象的各维度大小
 
-##### *Parameters*
+##### *参数*
 None
 
-##### *Return value*
+##### *返回值*
 shape: *Array*
 
-##### *Example*
+##### *范例*
 
 ~~~
 $num = new Num();
@@ -138,15 +138,15 @@ $ndarray->getShape(); // returns array(2, 3)
 
 ### getNdim
 -----
-_**Description**_: 获取N维数组的维度
+_**说明**_: 获取数组对象的维度
 
-##### *Parameters*
+##### *参数*
 None
 
-##### *Return value*
+##### *返回值*
 ndim: *LONG*
 
-##### *Example*
+##### *范例*
 
 ~~~
 $num = new Num();
@@ -156,15 +156,15 @@ $ndarray->getNdim(); // returns 2
 
 ### getSize
 -----
-_**Description**_: 获取N维数组的元素个数
+_**说明**_: 获取数组对象的元素个数
 
-##### *Parameters*
+##### *参数*
 None
 
-##### *Return value*
+##### *返回值*
 size: *LONG*
 
-##### *Example*
+##### *范例*
 
 ~~~
 $num = new Num();
@@ -176,22 +176,22 @@ $ndarray->getSize(); // returns 6
 
 ## 运算
 
-1. [add](#add) - 加上N维数组
-2. [sub](#sub) - 减去N维数组
-3. [mult](#mult) - 乘以N维数组
-4. [div](#div) - 除以N维数组
+1. [add](#add) - 加上数组对象
+2. [sub](#sub) - 减去数组对象
+3. [mult](#mult) - 乘以数组对象
+4. [div](#div) - 除以数组对象
 
 ### add
 -----
-_**Description**_: 加上N维数组
+_**说明**_: 加上数组对象
 
-##### *Parameters*
+##### *参数*
 ndarray: *Object*
 
-##### *Return value*
+##### *返回值*
 ndarray: *Object*
 
-##### *Example*
+##### *范例*
 
 ~~~
 $num = new Num();
@@ -208,15 +208,15 @@ array([
 
 ### sub
 -----
-_**Description**_: 减去N维数组
+_**说明**_: 减去数组对象
 
-##### *Parameters*
+##### *参数*
 ndarray: *Object*
 
-##### *Return value*
+##### *返回值*
 ndarray: *Object*
 
-##### *Example*
+##### *范例*
 
 ~~~
 $num = new Num();
@@ -233,15 +233,15 @@ array([
 
 ### mult
 -----
-_**Description**_: 乘以N维数组
+_**说明**_: 乘以数组对象
 
-##### *Parameters*
+##### *参数*
 ndarray: *Object*
 
-##### *Return value*
+##### *返回值*
 ndarray: *Object*
 
-##### *Example*
+##### *范例*
 
 ~~~
 $num = new Num();
@@ -258,15 +258,15 @@ array([
 
 ### div
 -----
-_**Description**_: 除以N维数组
+_**说明**_: 除以数组对象
 
-##### *Parameters*
+##### *参数*
 ndarray: *Object*
 
-##### *Return value*
+##### *返回值*
 ndarray: *Object*
 
-##### *Example*
+##### *范例*
 
 ~~~
 $num = new Num();
@@ -285,20 +285,20 @@ array([
 
 ## 统计
 
-1. [amin](#amin) - 获取N维数组的最小元素
-2. [amax](#amin) - 获取N维数组的最大元素
+1. [amin](#amin) - 获取数组对象的最小元素
+2. [amax](#amin) - 获取数组对象的最大元素
 
 ### amin
 -----
-_**Description**_: 获取N维数组的最小元素
+_**说明**_: 获取数组对象的最小元素
 
-##### *Parameters*
+##### *参数*
 ndarray: *Object*
 
-##### *Return value*
+##### *返回值*
 amin: *Double*
 
-##### *Example*
+##### *范例*
 
 ~~~
 $num = new Num();
@@ -308,15 +308,15 @@ $num->min($ndarray); // returns 1
 
 ### amax
 -----
-_**Description**_: 获取N维数组的最大元素
+_**说明**_: 获取数组对象的最大元素
 
-##### *Parameters*
+##### *参数*
 ndarray: *Object*
 
-##### *Return value*
+##### *返回值*
 amax: *Double*
 
-##### *Example*
+##### *范例*
 
 ~~~
 $num = new Num();
