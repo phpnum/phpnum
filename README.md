@@ -4,7 +4,7 @@
 
 A PHP extension for scientific computing. Inspired by [NumPy](https://github.com/numpy/numpy) & [NumPHP](https://github.com/NumPHP/NumPHP).
 
-
+[查看中文文档](https://github.com/phpnum/phpnum/blob/master/README.zh.md)
 
 # Table of contents
 -----
