@@ -14,8 +14,8 @@ A PHP extension for scientific computing. Inspired by [NumPy](https://github.com
 2. [Classes and methods](#classes-and-methods)
    * [Usage](#usage)
    * [Characteristics](#characteristics)
-   * [Arithmetic Operations](#arithmetic-operations)
    * [Statistics](#statistics)
+   * [Arithmetic Operations](#arithmetic-operations)
    * [Maths](#maths)
 
 -----
@@ -172,111 +172,6 @@ $ndarray->getSize(); // returns 6
 
 
 
-## Arithmetic Operations
-
-1. [add](#add) - Add a ndarray to an other ndarray
-2. [sub](#sub) - Subtract a ndarray from an other ndarray
-3. [mult](#mult) - Multiply a ndarray by an other ndarray
-4. [div](#div) - A ndarray divided by an other ndarray
-
-### add
------
-_**Description**_: Add a ndarray to an other ndarray
-
-##### *Parameters*
-ndarray: *Object*
-
-##### *Return value*
-ndarray: *Object*
-
-##### *Example*
-
-~~~
-$a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
-$b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
-echo $a->add($b);
-/* output:
-array([
-  [4.2,3.5,4],
-  [4.5,7,6]
-])
-*/
-~~~
-
-### sub
------
-_**Description**_: Subtract a ndarray from an other ndarray
-
-##### *Parameters*
-ndarray: *Object*
-
-##### *Return value*
-ndarray: *Object*
-
-##### *Example*
-
-~~~
-$a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
-$b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
-echo $a->sub($b);
-/* output:
-array([
-  [-2.2,0.5,2],
-  [-0.5,-1,2]
-])
-*/
-~~~
-
-### mult
------
-_**Description**_: Multiply a ndarray by an other ndarray
-
-##### *Parameters*
-ndarray: *Object*
-
-##### *Return value*
-ndarray: *Object*
-
-##### *Example*
-
-~~~
-$a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
-$b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
-echo $a->mult($b);
-/* output:
-array([
-  [3.2,3,3],
-  [5,12,8]
-])
-*/
-~~~
-
-### div
------
-_**Description**_: A ndarray divided by an other ndarray
-
-##### *Parameters*
-ndarray: *Object*
-
-##### *Return value*
-ndarray: *Object*
-
-##### *Example*
-
-~~~
-$a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
-$b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
-echo $a->div($b);
-/* output:
-array([
-  [0.3125,1.3333333333333,3],
-  [0.8,0.75,2]
-])
-*/
-~~~
-
-
-
 ## Statistics
 
 1. [amin](#amin) - Return the minimum of a ndarray
@@ -316,6 +211,127 @@ $ndarray = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 $num->sqrt($ndarray);
 echo $ndarray;
 ~~~
+
+
+
+## Arithmetic Operations
+
+1. [add](#add) - Add a ndarray to an other ndarray
+2. [sub](#sub) - Subtract a ndarray from an other ndarray
+3. [mult](#mult) - Multiply a ndarray by an other ndarray
+4. [div](#div) - A ndarray divided by an other ndarray
+
+### add
+
+------
+
+_**Description**_: Add a ndarray to an other ndarray
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+ndarray: *Object*
+
+##### *Example*
+
+```
+$a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
+$b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
+echo $a->add($b);
+/* output:
+array([
+  [4.2,3.5,4],
+  [4.5,7,6]
+])
+*/
+```
+
+### sub
+
+------
+
+_**Description**_: Subtract a ndarray from an other ndarray
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+ndarray: *Object*
+
+##### *Example*
+
+```
+$a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
+$b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
+echo $a->sub($b);
+/* output:
+array([
+  [-2.2,0.5,2],
+  [-0.5,-1,2]
+])
+*/
+```
+
+### mult
+
+------
+
+_**Description**_: Multiply a ndarray by an other ndarray
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+ndarray: *Object*
+
+##### *Example*
+
+```
+$a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
+$b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
+echo $a->mult($b);
+/* output:
+array([
+  [3.2,3,3],
+  [5,12,8]
+])
+*/
+```
+
+### div
+
+------
+
+_**Description**_: A ndarray divided by an other ndarray
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+ndarray: *Object*
+
+##### *Example*
+
+```
+$a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
+$b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
+echo $a->div($b);
+/* output:
+array([
+  [0.3125,1.3333333333333,3],
+  [0.8,0.75,2]
+])
+*/
+```
 
 
 
@@ -393,7 +409,7 @@ array: *Array*
 
 ```
 $ndarray = $num->array([[0.5, 1], [10, 2]]);
-$num->exp($ndarray);
+$num->log($ndarray);
 // returns array([[-0.69314718055994529, 0.0], [2.3025850929940459, 0.69314718055994529]])
 ```
 
@@ -415,7 +431,7 @@ array: *Array*
 
 ```
 $ndarray = $num->array([[0.5, 1], [0, 2]]);
-$num->exp($ndarray);
+$num->sin($ndarray);
 // returns array([[0.47942553860420301, 0.8414709848078965], [0.0, 0.90929742682568171]])
 ```
 
@@ -437,7 +453,7 @@ array: *Array*
 
 ```
 $ndarray = $num->array([[0.5, 1], [0, 2]]);
-$num->exp($ndarray);
+$num->cos($ndarray);
 // returns array([[0.87758256189037276, 0.54030230586813977], [1.0, -0.41614683654714241]])
 ```
 
@@ -459,7 +475,7 @@ array: *Array*
 
 ```
 $ndarray = $num->array([[0.5, 1], [0, 2]]);
-$num->exp($ndarray);
+$num->tan($ndarray);
 // returns array([[0.54630248984379048, 1.5574077246549023], [0.0, -2.1850398632615189]])
 ```
 
@@ -481,7 +497,7 @@ array: *Array*
 
 ```
 $ndarray = $num->array([[0.5, 1], [0, 2]]);
-$num->exp($ndarray);
+$num->ceil($ndarray);
 // returns array([[1.0, 1.0], [0.0, 2.0]])
 ```
 
@@ -503,7 +519,7 @@ array: *Array*
 
 ```
 $ndarray = $num->array([[0.5, 1], [0, 2]]);
-$num->exp($ndarray);
+$num->floor($ndarray);
 // returns array([[0.0, 1.0], [0.0, 2.0]])
 ```
 
