@@ -25,7 +25,8 @@ extern zend_class_entry *num_ndarray_ce;
 zval* num_calc_shape(zval *data, zval *shape, zend_long dimension);
 
 int num_ndarray_recursive(zval *data1, zval *data2, num_func_t num_func);
-int num_ndarray_self_recursive(zval *ret, zval *data, num_func_t num_func);
+int num_ndarray_compare_recursive(zval *ret, zval *data, num_func_t num_func);
+int num_ndarray_self_recursive(zval *data, num_func_t_one num_func);
 zend_string *num_ndarray_to_string(zval *data, zend_long level);
 
 NUM_STARTUP_FUNCTION(ndarray);

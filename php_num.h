@@ -38,18 +38,21 @@ extern zend_module_entry num_module_entry;
 #include "TSRM.h"
 #endif
 
-#define max(a,b) ( ((a)>(b)) ? (a):(b) )
-#define min(a,b) ( ((a)>(b)) ? (b):(a) )
-
 #define NUM_STARTUP_FUNCTION(module)    ZEND_MINIT_FUNCTION(num_##module)
 #define NUM_RINIT_FUNCTION(module)    ZEND_RINIT_FUNCTION(num_##module)
 #define NUM_STARTUP(module)         ZEND_MODULE_STARTUP_N(num_##module)(INIT_FUNC_ARGS_PASSTHRU)
 #define NUM_SHUTDOWN_FUNCTION(module)   ZEND_MSHUTDOWN_FUNCTION(num_##module)
 #define NUM_SHUTDOWN(module)        ZEND_MODULE_SHUTDOWN_N(num_##module)(INIT_FUNC_ARGS_PASSTHRU)
 
+#define max(a,b) ( ((a)>(b)) ? (a):(b) )
+#define min(a,b) ( ((a)>(b)) ? (b):(a) )
+
+#define NUM_PROPERT_ARRAY          "_array"
+
 extern zend_class_entry *num_ce;
 
 typedef double (*num_func_t)(double val1, double val2);
+typedef double (*num_func_t_one)(double val);
 
 double num_operator_add(double val1, double val2);
 double num_operator_sub(double val1, double val2);

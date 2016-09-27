@@ -16,6 +16,7 @@ A PHP extension for scientific computing. Inspired by [NumPy](https://github.com
    * [Characteristics](#characteristics)
    * [Arithmetic Operations](#arithmetic-operations)
    * [Statistics](#statistics)
+   * [Maths](#maths)
 
 -----
 
@@ -114,9 +115,8 @@ data: *Array*
 ##### *Example*
 
 ~~~
-$num = new Num();
 $ndarray = $num->array([[1.0, 2, 3], [2, 3, 4]]);
-$ndarray->getData(); // returns array(array(1.0, 2, 3), array(2, 3, 4))
+$ndarray->getData(); // returns array([1.0, 2, 3], [2, 3, 4])
 ~~~
 
 ### getShape
@@ -132,7 +132,6 @@ shape: *Array*
 ##### *Example*
 
 ~~~
-$num = new Num();
 $ndarray = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $ndarray->getShape(); // returns array(2, 3)
 ~~~
@@ -150,7 +149,6 @@ ndim: *LONG*
 ##### *Example*
 
 ~~~
-$num = new Num();
 $ndarray = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $ndarray->getNdim(); // returns 2
 ~~~
@@ -168,7 +166,6 @@ size: *LONG*
 ##### *Example*
 
 ~~~
-$num = new Num();
 $ndarray = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $ndarray->getSize(); // returns 6
 ~~~
@@ -195,7 +192,6 @@ ndarray: *Object*
 ##### *Example*
 
 ~~~
-$num = new Num();
 $a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->add($b);
@@ -220,7 +216,6 @@ ndarray: *Object*
 ##### *Example*
 
 ~~~
-$num = new Num();
 $a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->sub($b);
@@ -245,7 +240,6 @@ ndarray: *Object*
 ##### *Example*
 
 ~~~
-$num = new Num();
 $a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->mult($b);
@@ -270,7 +264,6 @@ ndarray: *Object*
 ##### *Example*
 
 ~~~
-$num = new Num();
 $a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->div($b);
@@ -302,7 +295,6 @@ amin: *Double*
 ##### *Example*
 
 ~~~
-$num = new Num();
 $ndarray = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 $num->min($ndarray); // returns 1
 ~~~
@@ -320,7 +312,198 @@ amax: *Double*
 ##### *Example*
 
 ~~~
-$num = new Num();
 $ndarray = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
-$num->amax($ndarray); // returns 4
+$num->sqrt($ndarray);
+echo $ndarray;
 ~~~
+
+
+
+
+## Maths
+
+1. [sqrt](#sqrt) - Return the positive square-root of an array, element-wise
+2. [exp](#exp) - Calculate the exponential of all elements in the input array
+3. [log](#log) - Natural logarithm, element-wise
+4. [sin](#sin) - Trigonometric sine, element-wise
+5. [cos](#cos) - Cosine element-wise
+6. [tan](#tan) - Compute tangent element-wise
+7. [ceil](#ceil) - Return the ceiling of the input, element-wise
+8. [floor](#floor) - Return the floor of the input, element-wise
+
+### sqrt
+
+------
+
+_**Description**_: Return the positive square-root of an array, element-wise
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+array: *Array*
+
+##### *Example*
+
+```
+$ndarray = $num->array([[0.5, 1], [0, 2]]);
+$num->sqrt($ndarray);
+// returns array([[0.70710678118654757, 1.0], [0.0, 1.4142135623730951]])
+```
+
+### exp
+
+------
+
+_**Description**_: Calculate the exponential of all elements in the input array
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+array: *Array*
+
+##### *Example*
+
+```
+$ndarray = $num->array([[0.5, 1], [0, 2]]);
+$num->exp($ndarray);
+// returns array([[1.6487212707001282, 2.7182818284590451], [1.0, 7.3890560989306504]])
+```
+
+### log
+
+------
+
+_**Description**_: Natural logarithm, element-wise
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+array: *Array*
+
+##### *Example*
+
+```
+$ndarray = $num->array([[0.5, 1], [10, 2]]);
+$num->exp($ndarray);
+// returns array([[-0.69314718055994529, 0.0], [2.3025850929940459, 0.69314718055994529]])
+```
+
+### sin
+
+------
+
+_**Description**_: Trigonometric sine, element-wise
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+array: *Array*
+
+##### *Example*
+
+```
+$ndarray = $num->array([[0.5, 1], [0, 2]]);
+$num->exp($ndarray);
+// returns array([[0.47942553860420301, 0.8414709848078965], [0.0, 0.90929742682568171]])
+```
+
+### cos
+
+------
+
+_**Description**_: Cosine element-wise
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+array: *Array*
+
+##### *Example*
+
+```
+$ndarray = $num->array([[0.5, 1], [0, 2]]);
+$num->exp($ndarray);
+// returns array([[0.87758256189037276, 0.54030230586813977], [1.0, -0.41614683654714241]])
+```
+
+### tan
+
+------
+
+_**Description**_: Compute tangent element-wise
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+array: *Array*
+
+##### *Example*
+
+```
+$ndarray = $num->array([[0.5, 1], [0, 2]]);
+$num->exp($ndarray);
+// returns array([[0.54630248984379048, 1.5574077246549023], [0.0, -2.1850398632615189]])
+```
+
+### ceil
+
+------
+
+_**Description**_: Return the ceiling of the input, element-wise
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+array: *Array*
+
+##### *Example*
+
+```
+$ndarray = $num->array([[0.5, 1], [0, 2]]);
+$num->exp($ndarray);
+// returns array([[1.0, 1.0], [0.0, 2.0]])
+```
+
+### floor
+
+------
+
+_**Description**_: Return the floor of the input, element-wise
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+array: *Array*
+
+##### *Example*
+
+```
+$ndarray = $num->array([[0.5, 1], [0, 2]]);
+$num->exp($ndarray);
+// returns array([[0.0, 1.0], [0.0, 2.0]])
+```
+
