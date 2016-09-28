@@ -16,7 +16,7 @@ A PHP extension for scientific computing. Inspired by [NumPy](https://github.com
    * [Characteristics](#characteristics)
    * [Statistics](#statistics)
    * [Arithmetic Operations](#arithmetic-operations)
-   * [Maths](#maths)
+   * [Universal Functions](#universal-functions)
 
 -----
 
@@ -336,7 +336,7 @@ array([
 
 
 
-## Maths
+## Universal functions
 
 1. [power](#power) - First array elements raised to powers from second array, element-wise
 2. [square](#square) - Return the element-wise square of the input
