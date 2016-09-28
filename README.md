@@ -216,16 +216,16 @@ echo $ndarray;
 
 ## Arithmetic Operations
 
-1. [add](#add) - Add an array to an other ndarray
-2. [sub](#sub) - Subtract an array from an other ndarray
-3. [mult](#mult) - Multiply an array by an other ndarray
-4. [div](#div) - an array divided by an other ndarray
+1. [add](#add) - Add an array to an other array
+2. [sub](#sub) - Subtract an array from an other array
+3. [mult](#mult) - Multiply an array by an other array
+4. [div](#div) - an array divided by an other array
 
 ### add
 
 ------
 
-_**Description**_: Add an array to an other ndarray
+_**Description**_: Add an array to an other array
 
 ##### *Parameters*
 
@@ -253,7 +253,7 @@ array([
 
 ------
 
-_**Description**_: Subtract an array from an other ndarray
+_**Description**_: Subtract an array from an other array
 
 ##### *Parameters*
 
@@ -281,7 +281,7 @@ array([
 
 ------
 
-_**Description**_: Multiply an array by an other ndarray
+_**Description**_: Multiply an array by an other array
 
 ##### *Parameters*
 
@@ -309,7 +309,7 @@ array([
 
 ------
 
-_**Description**_: an array divided by an other ndarray
+_**Description**_: an array divided by an other array
 
 ##### *Parameters*
 
