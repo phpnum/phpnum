@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/phpnum/phpnum.svg?branch=master)](https://travis-ci.org/phpnum/phpnum)
 
-phpnum是PHP语言的一个科学计算扩展。支持大规模的多维数组运算，此外也为数组运算提供了大量数学函数库。灵感源自 [NumPy](https://github.com/numpy/numpy) & [NumPHP](https://github.com/NumPHP/NumPHP)。
+phpnum 是 PHP 语言的一个科学计算扩展。支持多维数组运算，此外也为数组运算提供了大量数学函数库。灵感源自 [NumPy](https://github.com/numpy/numpy) & [NumPHP](https://github.com/NumPHP/NumPHP)。
 
 
 
