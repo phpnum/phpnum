@@ -174,12 +174,12 @@ $ndarray->getSize(); // returns 6
 
 ## Statistics
 
-1. [amin](#amin) - Return the minimum of a ndarray
-2. [amax](#amin) - Return the maximum of a ndarray
+1. [amin](#amin) - Return the minimum of an array
+2. [amax](#amin) - Return the maximum of an array
 
 ### amin
 -----
-_**Description**_: Return the minimum of a ndarray
+_**Description**_: Return the minimum of an array
 
 ##### *Parameters*
 ndarray: *Object*
@@ -196,7 +196,7 @@ $num->min($ndarray); // returns 1
 
 ### amax
 -----
-_**Description**_: Return the maximum of a ndarray
+_**Description**_: Return the maximum of an array
 
 ##### *Parameters*
 ndarray: *Object*
@@ -216,16 +216,16 @@ echo $ndarray;
 
 ## Arithmetic Operations
 
-1. [add](#add) - Add a ndarray to an other ndarray
-2. [sub](#sub) - Subtract a ndarray from an other ndarray
-3. [mult](#mult) - Multiply a ndarray by an other ndarray
-4. [div](#div) - A ndarray divided by an other ndarray
+1. [add](#add) - Add an array to an other ndarray
+2. [sub](#sub) - Subtract an array from an other ndarray
+3. [mult](#mult) - Multiply an array by an other ndarray
+4. [div](#div) - an array divided by an other ndarray
 
 ### add
 
 ------
 
-_**Description**_: Add a ndarray to an other ndarray
+_**Description**_: Add an array to an other ndarray
 
 ##### *Parameters*
 
@@ -253,7 +253,7 @@ array([
 
 ------
 
-_**Description**_: Subtract a ndarray from an other ndarray
+_**Description**_: Subtract an array from an other ndarray
 
 ##### *Parameters*
 
@@ -281,7 +281,7 @@ array([
 
 ------
 
-_**Description**_: Multiply a ndarray by an other ndarray
+_**Description**_: Multiply an array by an other ndarray
 
 ##### *Parameters*
 
@@ -309,7 +309,7 @@ array([
 
 ------
 
-_**Description**_: A ndarray divided by an other ndarray
+_**Description**_: an array divided by an other ndarray
 
 ##### *Parameters*
 
@@ -338,14 +338,62 @@ array([
 
 ## Maths
 
-1. [sqrt](#sqrt) - Return the positive square-root of an array, element-wise
-2. [exp](#exp) - Calculate the exponential of all elements in the input array
-3. [log](#log) - Natural logarithm, element-wise
-4. [sin](#sin) - Trigonometric sine, element-wise
-5. [cos](#cos) - Cosine element-wise
-6. [tan](#tan) - Compute tangent element-wise
-7. [ceil](#ceil) - Return the ceiling of the input, element-wise
-8. [floor](#floor) - Return the floor of the input, element-wise
+1. [power](#power) - First array elements raised to powers from second array, element-wise
+2. [square](#square) - Return the element-wise square of the input
+3. [sqrt](#sqrt) - Return the positive square-root of an array, element-wise
+4. [exp](#exp) - Calculate the exponential of all elements in the input array
+5. [log](#log) - Natural logarithm, element-wise
+6. [sin](#sin) - Trigonometric sine, element-wise
+7. [cos](#cos) - Cosine element-wise
+8. [tan](#tan) - Compute tangent element-wise
+9. [ceil](#ceil) - Return the ceiling of the input, element-wise
+10. [floor](#floor) - Return the floor of the input, element-wise
+
+### power
+
+------
+
+_**Description**_: First array elements raised to powers from second array, element-wise
+
+##### *Parameters*
+
+base: *Object*
+
+exponent: *Object* or *Double*
+
+##### *Return value*
+
+array: *Array*
+
+##### *Example*
+
+```
+$ndarray = $num->array([[0.5, 1], [0, 2]]);
+$num->power($ndarray, 3);
+// returns array([[0.125, 1.0], [0.0, 8.0]])
+```
+
+### square
+
+------
+
+_**Description**_: Return the element-wise square of the input
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+array: *Array*
+
+##### *Example*
+
+```
+$ndarray = $num->array([[0.5, 1], [0, 2]]);
+$num->square($ndarray);
+// returns array([[0.5, 1.0], [0.0, 4.0]])
+```
 
 ### sqrt
 

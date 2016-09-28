@@ -330,14 +330,62 @@ array([
 
 ## 数学计算
 
-1. [sqrt](#sqrt) - 遍历计算平方根
-2. [exp](#exp) - 遍历计算自然常数e的次幂
-3. [log](#log) - 遍历计算自然对数
-4. [sin](#sin) - 遍历计算正弦值
-5. [cos](#cos) - 遍历计算余弦值
-6. [tan](#tan) - 遍历计算正切值
-7. [ceil](#ceil) - 遍历计算向上取整
-8. [floor](#floor) - 遍历计算向下取整
+1. [power](#power) - 遍历计算次幂
+2. [square](#square) - 遍历计算平方
+3. [sqrt](#sqrt) - 遍历计算平方根
+4. [exp](#exp) - 遍历计算自然常数e的次幂
+5. [log](#log) - 遍历计算自然对数
+6. [sin](#sin) - 遍历计算正弦值
+7. [cos](#cos) - 遍历计算余弦值
+8. [tan](#tan) - 遍历计算正切值
+9. [ceil](#ceil) - 遍历计算向上取整
+10. [floor](#floor) - 遍历计算向下取整
+
+### power
+
+------
+
+_**说明**_: 遍历计算次幂
+
+##### *参数*
+
+base: *Object*
+
+exponent: *Object* or *Double*
+
+##### *返回值*
+
+array: *Array*
+
+##### *范例*
+
+```
+$ndarray = $num->array([[0.5, 1], [0, 2]]);
+$num->power($ndarray, 3);
+// returns array([[0.125, 1.0], [0.0, 8.0]])
+```
+
+### square
+
+------
+
+_**说明**_: 遍历计算平方
+
+##### *参数*
+
+ndarray: *Object*
+
+##### *返回值*
+
+array: *Array*
+
+##### *范例*
+
+```
+$ndarray = $num->array([[0.5, 1], [0, 2]]);
+$num->square($ndarray);
+// returns array([[0.5, 1.0], [0.0, 4.0]])
+```
 
 ### sqrt
 

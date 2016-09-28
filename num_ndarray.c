@@ -93,7 +93,7 @@ int num_ndarray_compare_recursive(zval *ret, zval *data, num_func_t num_func){
 
 int num_ndarray_self_recursive(zval *data, num_func_t_one num_func){
     zval *val, tmp;
-    ulong idx;
+    zend_ulong idx;
     if (Z_TYPE_P(data) == IS_ARRAY) {
         ZEND_HASH_FOREACH_NUM_KEY_VAL(Z_ARR_P(data), idx, val) {
             if (Z_TYPE_P(val) == IS_ARRAY) {
@@ -111,13 +111,53 @@ int num_ndarray_self_recursive(zval *data, num_func_t_one num_func){
     return SUCCESS;
 }
 
+int num_ndarray_arithmetic_recursive(zval *data1, zval *data2, num_func_t num_func){
+    zval *val1, *val2, tmp;
+    zend_ulong idx;
+    HashTable *ht1, *ht2;
+    if (Z_TYPE_P(data1) == IS_ARRAY) {
+        ht1 = Z_ARR_P(data1);
+        if (Z_TYPE_P(data2) == IS_ARRAY) {
+            ht2 = Z_ARR_P(data2);
+            ZEND_HASH_FOREACH_NUM_KEY_VAL(ht1, idx, val1) {
+                val2 = zend_hash_index_find(ht2, idx);
+                if (Z_TYPE_P(val1) == IS_ARRAY) {
+                    tmp = *val1;
+                    zval_copy_ctor(&tmp);
+                    add_index_zval(data1, idx, &tmp);
+                    num_ndarray_arithmetic_recursive(&tmp, val2, num_func);
+                } else {
+                    convert_to_double(val1);
+                    convert_to_double(val2);
+                    ZVAL_DOUBLE(val1, num_func(Z_DVAL_P(val1), Z_DVAL_P(val2)));
+                }
+            } ZEND_HASH_FOREACH_END();
+        } else {
+            ZEND_HASH_FOREACH_NUM_KEY_VAL(ht1, idx, val1) {
+                if (Z_TYPE_P(val1) == IS_ARRAY) {
+                    tmp = *val1;
+                    zval_copy_ctor(&tmp);
+                    add_index_zval(data1, idx, &tmp);
+                    num_ndarray_arithmetic_recursive(&tmp, data2, num_func);
+                } else {
+                    convert_to_double(val1);
+                    convert_to_double(data2);
+                    ZVAL_DOUBLE(val1, num_func(Z_DVAL_P(val1), Z_DVAL_P(data2)));
+                }
+            } ZEND_HASH_FOREACH_END();
+        }
+    }
+    zval_ptr_dtor(&tmp);
+    return SUCCESS;
+}
+
 zend_string *num_ndarray_to_string(zval *data, zend_long level){
     zend_string *space, *ret;
     zval *first, *val, tmp;
     smart_str output = {0};
     HashPosition pointer = 0;
     HashTable *ht;
-    ulong idx;
+    zend_ulong idx;
     zend_string *delim;
     delim = zend_string_init(ZEND_STRL(","), 0);
     if (Z_TYPE_P(data) != IS_ARRAY) {
@@ -203,7 +243,7 @@ ZEND_METHOD(num_ndarray, getSize)
     zval *shape = zend_read_property(num_ndarray_ce, getThis(), ZEND_STRL(NUM_NDARRAY_PROPERT_SHAPE), 0, NULL);
     zval *val;
     HashTable *ht;
-    ulong size = 1;
+    zend_ulong size = 1;
     ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(shape), val) {
         size *= Z_LVAL_P(val);
     } ZEND_HASH_FOREACH_END();

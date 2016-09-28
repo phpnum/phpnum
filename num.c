@@ -94,6 +94,37 @@ ZEND_METHOD(num_ndarray, amax)
     RETURN_ZVAL(&ret, 1, 0);
 }
 
+ZEND_METHOD(num_ndarray, power)
+{
+    zval *ce, *exponent_ce, *data, *exponent, newdata;
+    if( zend_parse_parameters(ZEND_NUM_ARGS(), "zz", &ce, &exponent_ce) == FAILURE ) {
+        RETURN_NULL();
+    }
+    data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
+    newdata = *data;
+    zval_copy_ctor(&newdata);
+    exponent = Z_TYPE_P(exponent_ce) == IS_OBJECT ? zend_read_property(Z_OBJCE_P(exponent_ce), exponent_ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL) : exponent_ce;
+    num_ndarray_arithmetic_recursive(&newdata, exponent, pow);
+    zval_ptr_dtor(data);
+    RETURN_ZVAL(&newdata, 1, 0);
+}
+
+ZEND_METHOD(num_ndarray, square)
+{
+    zval *ce, *data, exponent, newdata;
+    if( zend_parse_parameters(ZEND_NUM_ARGS(), "z", &ce) == FAILURE ) {
+        RETURN_NULL();
+    }
+    ZVAL_DOUBLE(&exponent, 2);
+    data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
+    newdata = *data;
+    zval_copy_ctor(&newdata);
+    num_ndarray_arithmetic_recursive(&newdata, &exponent, pow);
+    zval_ptr_dtor(data);
+    zval_ptr_dtor(&exponent);
+    RETURN_ZVAL(&newdata, 1, 0);
+}
+
 ZEND_METHOD(num_ndarray, sqrt)
 {
     zval *ce, *data, newdata;
@@ -211,6 +242,8 @@ static zend_function_entry num_methods[]=
     ZEND_ME(num, array, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, amin, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, amax, NULL, ZEND_ACC_PUBLIC)
+    ZEND_ME(num_ndarray, power, NULL, ZEND_ACC_PUBLIC)
+    ZEND_ME(num_ndarray, square, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, sqrt, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, exp, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, log, NULL, ZEND_ACC_PUBLIC)
