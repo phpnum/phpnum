@@ -237,6 +237,20 @@ ZEND_METHOD(num_ndarray, floor)
     RETURN_ZVAL(&newdata, 1, 0);
 }
 
+ZEND_METHOD(num_ndarray, fabs)
+{
+    zval *ce, *data, newdata;
+    if( zend_parse_parameters(ZEND_NUM_ARGS(), "z", &ce) == FAILURE ) {
+        RETURN_NULL();
+    }
+    data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
+    newdata = *data;
+    zval_copy_ctor(&newdata);
+    num_ndarray_self_recursive(&newdata, fabs);
+    zval_ptr_dtor(data);
+    RETURN_ZVAL(&newdata, 1, 0);
+}
+
 static zend_function_entry num_methods[]=
 {
     ZEND_ME(num, array, NULL, ZEND_ACC_PUBLIC)
@@ -252,6 +266,7 @@ static zend_function_entry num_methods[]=
     ZEND_ME(num_ndarray, tan, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, ceil, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, floor, NULL, ZEND_ACC_PUBLIC)
+    ZEND_ME(num_ndarray, fabs, NULL, ZEND_ACC_PUBLIC)
     ZEND_FE_END
 };
 

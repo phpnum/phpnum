@@ -352,6 +352,7 @@ array([
 8. [tan](#tan) - 遍历数组计算正切值
 9. [ceil](#ceil) - 遍历数组计算向上取整
 10. [floor](#floor) - 遍历数组计算向下取整
+11. [fabs](#fabs) - 遍历数组计算绝对值
 
 ### power
 
@@ -572,6 +573,28 @@ array: *Array*
 ```
 $ndarray = $num->array([[0.5, 1], [0, 2]]);
 $num->floor($ndarray);
+// returns array([[0.0, 1.0], [0.0, 2.0]])
+```
+
+### fabs
+
+------
+
+_**说明**_: 遍历数组计算绝对值
+
+##### *参数*
+
+ndarray: *Object*
+
+##### *返回值*
+
+array: *Array*
+
+##### *范例*
+
+```
+$ndarray = $num->array([[0.5, -1], [0, -2]]);
+$num->fabs($ndarray);
 // returns array([[0.0, 1.0], [0.0, 2.0]])
 ```
 

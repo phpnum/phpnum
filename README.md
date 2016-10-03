@@ -348,6 +348,7 @@ array([
 8. [tan](#tan) - Compute tangent element-wise
 9. [ceil](#ceil) - Return the ceiling of the input, element-wise
 10. [floor](#floor) - Return the floor of the input, element-wise
+11. [fabs](#fabs) - Compute the absolute values element-wise
 
 ### power
 
@@ -568,6 +569,28 @@ array: *Array*
 ```
 $ndarray = $num->array([[0.5, 1], [0, 2]]);
 $num->floor($ndarray);
+// returns array([[0.0, 1.0], [0.0, 2.0]])
+```
+
+### fabs
+
+------
+
+_**Description**_: Compute the absolute values element-wise
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+array: *Array*
+
+##### *Example*
+
+```
+$ndarray = $num->array([[0.5, 1], [0, -2]]);
+$num->fabs($ndarray);
 // returns array([[0.0, 1.0], [0.0, 2.0]])
 ```
 
