@@ -167,6 +167,20 @@ ZEND_METHOD(num_ndarray, log)
     RETURN_ZVAL(&newdata, 1, 0);
 }
 
+ZEND_METHOD(num_ndarray, log10)
+{
+    zval *ce, *data, newdata;
+    if( zend_parse_parameters(ZEND_NUM_ARGS(), "z", &ce) == FAILURE ) {
+        RETURN_NULL();
+    }
+    data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
+    newdata = *data;
+    zval_copy_ctor(&newdata);
+    num_ndarray_self_recursive(&newdata, log10);
+    zval_ptr_dtor(data);
+    RETURN_ZVAL(&newdata, 1, 0);
+}
+
 ZEND_METHOD(num_ndarray, sin)
 {
     zval *ce, *data, newdata;
@@ -261,6 +275,7 @@ static zend_function_entry num_methods[]=
     ZEND_ME(num_ndarray, sqrt, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, exp, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, log, NULL, ZEND_ACC_PUBLIC)
+    ZEND_ME(num_ndarray, log10, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, sin, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, cos, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, tan, NULL, ZEND_ACC_PUBLIC)
