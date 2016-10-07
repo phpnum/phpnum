@@ -126,7 +126,6 @@ data: *Array*
 ##### *范例*
 
 ~~~
-$num = new Num();
 $ndarray = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $ndarray->getData(); // returns array([1.0, 2, 3], [2, 3, 4])
 ~~~
@@ -144,7 +143,6 @@ shape: *Array*
 ##### *范例*
 
 ~~~
-$num = new Num();
 $ndarray = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $ndarray->getShape(); // returns array(2, 3)
 ~~~
@@ -162,7 +160,6 @@ ndim: *LONG*
 ##### *范例*
 
 ~~~
-$num = new Num();
 $ndarray = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $ndarray->getNdim(); // returns 2
 ~~~
@@ -180,7 +177,6 @@ size: *LONG*
 ##### *范例*
 
 ~~~
-$num = new Num();
 $ndarray = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $ndarray->getSize(); // returns 6
 ~~~
@@ -205,7 +201,6 @@ amin: *Double*
 ##### *范例*
 
 ~~~
-$num = new Num();
 $ndarray = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 $num->min($ndarray); // returns 1
 ~~~
@@ -223,7 +218,6 @@ amax: *Double*
 ##### *范例*
 
 ~~~
-$num = new Num();
 $ndarray = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 $num->amax($ndarray); // returns 4
 ~~~
@@ -251,7 +245,6 @@ ndarray: *Object*
 ##### *范例*
 
 ~~~
-$num = new Num();
 $a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->add($b);
@@ -276,7 +269,6 @@ ndarray: *Object*
 ##### *范例*
 
 ~~~
-$num = new Num();
 $a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->sub($b);
@@ -301,7 +293,6 @@ ndarray: *Object*
 ##### *范例*
 
 ~~~
-$num = new Num();
 $a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->mult($b);
@@ -326,7 +317,6 @@ ndarray: *Object*
 ##### *范例*
 
 ~~~
-$num = new Num();
 $a = $num->array([[1.0, 2, 3], [2, 3, 4]]);
 $b = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
 echo $a->div($b);
@@ -347,12 +337,13 @@ array([
 3. [sqrt](#sqrt) - 遍历数组计算平方根
 4. [exp](#exp) - 遍历数组计算自然常数e的次幂
 5. [log](#log) - 遍历数组计算自然对数
-6. [sin](#sin) - 遍历数组计算正弦值
-7. [cos](#cos) - 遍历数组计算余弦值
-8. [tan](#tan) - 遍历数组计算正切值
-9. [ceil](#ceil) - 遍历数组计算向上取整
-10. [floor](#floor) - 遍历数组计算向下取整
-11. [fabs](#fabs) - 遍历数组计算绝对值
+6. [log10](#log10) - 遍历数组计算以10为底的对数值
+7. [sin](#sin) - 遍历数组计算正弦值
+8. [cos](#cos) - 遍历数组计算余弦值
+9. [tan](#tan) - 遍历数组计算正切值
+10. [ceil](#ceil) - 遍历数组计算向上取整
+11. [floor](#floor) - 遍历数组计算向下取整
+12. [fabs](#fabs) - 遍历数组计算绝对值
 
 ### power
 
@@ -464,6 +455,28 @@ array: *Array*
 $ndarray = $num->array([[0.5, 1], [10, 2]]);
 $num->log($ndarray);
 // returns array([[-0.69314718055994529, 0.0], [2.3025850929940459, 0.69314718055994529]])
+```
+
+### log10
+
+------
+
+_**说明**_: 遍历数组计算以10为底的对数值
+
+##### *参数*
+
+ndarray: *Object*
+
+##### *返回值*
+
+array: *Array*
+
+##### *范例*
+
+```
+$ndarray = $num->array([[1e-1, 1], [10, 100]]);
+$num->log10($ndarray);
+// returns array([[-1.0, 0.0], [1.0, 2.0]])
 ```
 
 ### sin

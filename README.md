@@ -208,8 +208,7 @@ amax: *Double*
 
 ~~~
 $ndarray = $num->array([[3.2, 1.5, 1], [2.5, 4, 2]]);
-$num->sqrt($ndarray);
-echo $ndarray;
+$num->amax($ndarray); // returns 4
 ~~~
 
 
@@ -343,12 +342,13 @@ array([
 3. [sqrt](#sqrt) - Return the positive square-root of an array, element-wise
 4. [exp](#exp) - Calculate the exponential of all elements in the input array
 5. [log](#log) - Natural logarithm, element-wise
-6. [sin](#sin) - Trigonometric sine, element-wise
-7. [cos](#cos) - Cosine element-wise
-8. [tan](#tan) - Compute tangent element-wise
-9. [ceil](#ceil) - Return the ceiling of the input, element-wise
-10. [floor](#floor) - Return the floor of the input, element-wise
-11. [fabs](#fabs) - Compute the absolute values element-wise
+6. [log10](#log10) - Return the base 10 logarithm of the input array, element-wise
+7. [sin](#sin) - Trigonometric sine, element-wise
+8. [cos](#cos) - Cosine element-wise
+9. [tan](#tan) - Compute tangent element-wise
+10. [ceil](#ceil) - Return the ceiling of the input, element-wise
+11. [floor](#floor) - Return the floor of the input, element-wise
+12. [fabs](#fabs) - Compute the absolute values element-wise
 
 ### power
 
@@ -460,6 +460,28 @@ array: *Array*
 $ndarray = $num->array([[0.5, 1], [10, 2]]);
 $num->log($ndarray);
 // returns array([[-0.69314718055994529, 0.0], [2.3025850929940459, 0.69314718055994529]])
+```
+
+### log10
+
+------
+
+_**Description**_: Return the base 10 logarithm of the input array, element-wise
+
+##### *Parameters*
+
+ndarray: *Object*
+
+##### *Return value*
+
+array: *Array*
+
+##### *Example*
+
+```
+$ndarray = $num->array([[1e-1, 1], [10, 100]]);
+$num->log10($ndarray);
+// returns array([[-1.0, 0.0], [1.0, 2.0]])
 ```
 
 ### sin
