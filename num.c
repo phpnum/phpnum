@@ -101,11 +101,9 @@ ZEND_METHOD(num_ndarray, power)
         RETURN_NULL();
     }
     data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    newdata = *data;
-    zval_copy_ctor(&newdata);
+    ZVAL_DUP(&newdata, data);
     exponent = Z_TYPE_P(exponent_ce) == IS_OBJECT ? zend_read_property(Z_OBJCE_P(exponent_ce), exponent_ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL) : exponent_ce;
     num_ndarray_arithmetic_recursive(&newdata, exponent, pow);
-    zval_ptr_dtor(data);
     RETURN_ZVAL(&newdata, 1, 0);
 }
 
@@ -117,11 +115,8 @@ ZEND_METHOD(num_ndarray, square)
     }
     ZVAL_DOUBLE(&exponent, 2);
     data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    newdata = *data;
-    zval_copy_ctor(&newdata);
+    ZVAL_DUP(&newdata, data);
     num_ndarray_arithmetic_recursive(&newdata, &exponent, pow);
-    zval_ptr_dtor(data);
-    zval_ptr_dtor(&exponent);
     RETURN_ZVAL(&newdata, 1, 0);
 }
 
@@ -132,10 +127,8 @@ ZEND_METHOD(num_ndarray, sqrt)
         RETURN_NULL();
     }
     data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    newdata = *data;
-    zval_copy_ctor(&newdata);
+    ZVAL_DUP(&newdata, data);
     num_ndarray_self_recursive(&newdata, sqrt);
-    zval_ptr_dtor(data);
     RETURN_ZVAL(&newdata, 1, 0);
 }
 
@@ -146,10 +139,8 @@ ZEND_METHOD(num_ndarray, exp)
         RETURN_NULL();
     }
     data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    newdata = *data;
-    zval_copy_ctor(&newdata);
+    ZVAL_DUP(&newdata, data);
     num_ndarray_self_recursive(&newdata, exp);
-    zval_ptr_dtor(data);
     RETURN_ZVAL(&newdata, 1, 0);
 }
 
@@ -160,10 +151,8 @@ ZEND_METHOD(num_ndarray, log)
         RETURN_NULL();
     }
     data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    newdata = *data;
-    zval_copy_ctor(&newdata);
+    ZVAL_DUP(&newdata, data);
     num_ndarray_self_recursive(&newdata, log);
-    zval_ptr_dtor(data);
     RETURN_ZVAL(&newdata, 1, 0);
 }
 
@@ -174,10 +163,8 @@ ZEND_METHOD(num_ndarray, log10)
         RETURN_NULL();
     }
     data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    newdata = *data;
-    zval_copy_ctor(&newdata);
+    ZVAL_DUP(&newdata, data);
     num_ndarray_self_recursive(&newdata, log10);
-    zval_ptr_dtor(data);
     RETURN_ZVAL(&newdata, 1, 0);
 }
 
@@ -188,10 +175,8 @@ ZEND_METHOD(num_ndarray, sin)
         RETURN_NULL();
     }
     data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    newdata = *data;
-    zval_copy_ctor(&newdata);
+    ZVAL_DUP(&newdata, data);
     num_ndarray_self_recursive(&newdata, sin);
-    zval_ptr_dtor(data);
     RETURN_ZVAL(&newdata, 1, 0);
 }
 
@@ -202,10 +187,8 @@ ZEND_METHOD(num_ndarray, cos)
         RETURN_NULL();
     }
     data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    newdata = *data;
-    zval_copy_ctor(&newdata);
+    ZVAL_DUP(&newdata, data);
     num_ndarray_self_recursive(&newdata, cos);
-    zval_ptr_dtor(data);
     RETURN_ZVAL(&newdata, 1, 0);
 }
 
@@ -216,10 +199,8 @@ ZEND_METHOD(num_ndarray, tan)
         RETURN_NULL();
     }
     data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    newdata = *data;
-    zval_copy_ctor(&newdata);
+    ZVAL_DUP(&newdata, data);
     num_ndarray_self_recursive(&newdata, tan);
-    zval_ptr_dtor(data);
     RETURN_ZVAL(&newdata, 1, 0);
 }
 
@@ -230,10 +211,8 @@ ZEND_METHOD(num_ndarray, ceil)
         RETURN_NULL();
     }
     data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    newdata = *data;
-    zval_copy_ctor(&newdata);
+    ZVAL_DUP(&newdata, data);
     num_ndarray_self_recursive(&newdata, ceil);
-    zval_ptr_dtor(data);
     RETURN_ZVAL(&newdata, 1, 0);
 }
 
@@ -244,10 +223,8 @@ ZEND_METHOD(num_ndarray, floor)
         RETURN_NULL();
     }
     data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    newdata = *data;
-    zval_copy_ctor(&newdata);
+    ZVAL_DUP(&newdata, data);
     num_ndarray_self_recursive(&newdata, floor);
-    zval_ptr_dtor(data);
     RETURN_ZVAL(&newdata, 1, 0);
 }
 
@@ -258,10 +235,8 @@ ZEND_METHOD(num_ndarray, fabs)
         RETURN_NULL();
     }
     data = zend_read_property(Z_OBJCE_P(ce), ce, ZEND_STRL(NUM_NDARRAY_PROPERT_DATA), 0, NULL);
-    newdata = *data;
-    zval_copy_ctor(&newdata);
+    ZVAL_DUP(&newdata, data);
     num_ndarray_self_recursive(&newdata, fabs);
-    zval_ptr_dtor(data);
     RETURN_ZVAL(&newdata, 1, 0);
 }
 
