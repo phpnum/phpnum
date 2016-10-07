@@ -97,8 +97,7 @@ int num_ndarray_self_recursive(zval *data, num_func_t_one num_func){
     if (Z_TYPE_P(data) == IS_ARRAY) {
         ZEND_HASH_FOREACH_NUM_KEY_VAL(Z_ARR_P(data), idx, val) {
             if (Z_TYPE_P(val) == IS_ARRAY) {
-                tmp = *val;
-                zval_copy_ctor(&tmp);
+                ZVAL_DUP(&tmp, val);
                 add_index_zval(data, idx, &tmp);
                 num_ndarray_self_recursive(&tmp, num_func);
             } else {
@@ -107,7 +106,6 @@ int num_ndarray_self_recursive(zval *data, num_func_t_one num_func){
             }
         } ZEND_HASH_FOREACH_END();
     }
-    zval_ptr_dtor(&tmp);
     return SUCCESS;
 }
 
@@ -122,8 +120,7 @@ int num_ndarray_arithmetic_recursive(zval *data1, zval *data2, num_func_t num_fu
             ZEND_HASH_FOREACH_NUM_KEY_VAL(ht1, idx, val1) {
                 val2 = zend_hash_index_find(ht2, idx);
                 if (Z_TYPE_P(val1) == IS_ARRAY) {
-                    tmp = *val1;
-                    zval_copy_ctor(&tmp);
+                    ZVAL_DUP(&tmp, val1);
                     add_index_zval(data1, idx, &tmp);
                     num_ndarray_arithmetic_recursive(&tmp, val2, num_func);
                 } else {
@@ -135,8 +132,7 @@ int num_ndarray_arithmetic_recursive(zval *data1, zval *data2, num_func_t num_fu
         } else {
             ZEND_HASH_FOREACH_NUM_KEY_VAL(ht1, idx, val1) {
                 if (Z_TYPE_P(val1) == IS_ARRAY) {
-                    tmp = *val1;
-                    zval_copy_ctor(&tmp);
+                    ZVAL_DUP(&tmp, val1);
                     add_index_zval(data1, idx, &tmp);
                     num_ndarray_arithmetic_recursive(&tmp, data2, num_func);
                 } else {
@@ -147,7 +143,6 @@ int num_ndarray_arithmetic_recursive(zval *data1, zval *data2, num_func_t num_fu
             } ZEND_HASH_FOREACH_END();
         }
     }
-    zval_ptr_dtor(&tmp);
     return SUCCESS;
 }
 
