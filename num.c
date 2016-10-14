@@ -73,17 +73,38 @@ ZEND_METHOD(num, array)
 ZEND_METHOD(num, arange)
 {
     zval function_name, params[3], data, ret, obj;
-    zend_long start, stop = 0, step = 1;
-    if( zend_parse_parameters(ZEND_NUM_ARGS(), "l|ll", &start, &stop, &step) == FAILURE ) {
+    zval *start, *stop = NULL, *step = NULL;
+    if( zend_parse_parameters(ZEND_NUM_ARGS(), "z|zz", &start, &stop, &step) == FAILURE ) {
         RETURN_NULL();
     }
-    if (stop == 0) {
-        stop = start;
-        start = 0;
+    if (stop == NULL) {
+        ZVAL_LONG(&params[0], 0);
+        if (Z_TYPE_P(start) == IS_LONG) {
+            ZVAL_LONG(&params[1], Z_LVAL_P(start));
+        } else if (Z_TYPE_P(start) == IS_DOUBLE) {
+            ZVAL_DOUBLE(&params[1], Z_DVAL_P(start));
+        }
+    } else {
+        if (Z_TYPE_P(start) == IS_LONG) {
+            ZVAL_LONG(&params[0], Z_LVAL_P(start));
+        } else if (Z_TYPE_P(start) == IS_DOUBLE) {
+            ZVAL_DOUBLE(&params[0], Z_DVAL_P(start));
+        }
+        if (Z_TYPE_P(stop) == IS_LONG) {
+            ZVAL_LONG(&params[1], Z_LVAL_P(stop));
+        } else if (Z_TYPE_P(stop) == IS_DOUBLE) {
+            ZVAL_DOUBLE(&params[1], Z_DVAL_P(stop));
+        }
     }
-    ZVAL_LONG(&params[0], start);
-    ZVAL_LONG(&params[1], stop - 1);
-    ZVAL_LONG(&params[2], step);
+    if (step == NULL) {
+        ZVAL_LONG(&params[2], 1);
+    } else {
+        if (Z_TYPE_P(step) == IS_LONG) {
+            ZVAL_LONG(&params[2], Z_LVAL_P(step));
+        } else if (Z_TYPE_P(step) == IS_DOUBLE) {
+            ZVAL_DOUBLE(&params[2], Z_DVAL_P(step));
+        }
+    }
     ZVAL_STRING(&function_name, "range");
     call_user_function(EG(function_table), NULL, &function_name, &data, 3, params);
     object_init_ex(&obj, num_ndarray_ce);
