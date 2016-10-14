@@ -183,6 +183,7 @@ zend_string *num_ndarray_to_string(zval *data, zend_long level){
         smart_str_appends(&output, "]");
     }
     zval_ptr_dtor(first);
+    smart_str_0(&output);
     return output.s;
 }
 
