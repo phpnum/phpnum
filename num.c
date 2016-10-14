@@ -70,6 +70,28 @@ ZEND_METHOD(num, array)
     RETURN_ZVAL(&ret, 1, 0);
 }
 
+ZEND_METHOD(num, arange)
+{
+    zval function_name, params[3], data, ret, obj;
+    zend_long start, stop = 0, step = 1;
+    if( zend_parse_parameters(ZEND_NUM_ARGS(), "l|ll", &start, &stop, &step) == FAILURE ) {
+        RETURN_NULL();
+    }
+    if (stop == 0) {
+        stop = start;
+        start = 0;
+    }
+    ZVAL_LONG(&params[0], start);
+    ZVAL_LONG(&params[1], stop - 1);
+    ZVAL_LONG(&params[2], step);
+    ZVAL_STRING(&function_name, "range");
+    call_user_function(EG(function_table), NULL, &function_name, &data, 3, params);
+    object_init_ex(&obj, num_ndarray_ce);
+    zend_call_method_with_1_params(&obj, num_ndarray_ce, NULL, "__construct", &ret, &data);
+    zend_update_property(num_ce, getThis(), ZEND_STRL(NUM_PROPERT_ARRAY), &ret);
+    RETURN_ZVAL(&ret, 1, 0);
+}
+
 ZEND_METHOD(num_ndarray, amin)
 {
     zval *ce, ret;
@@ -243,6 +265,7 @@ ZEND_METHOD(num_ndarray, fabs)
 static zend_function_entry num_methods[]=
 {
     ZEND_ME(num, array, NULL, ZEND_ACC_PUBLIC)
+    ZEND_ME(num, arange, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, amin, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, amax, NULL, ZEND_ACC_PUBLIC)
     ZEND_ME(num_ndarray, power, NULL, ZEND_ACC_PUBLIC)
