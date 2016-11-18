@@ -83,17 +83,26 @@ ZEND_METHOD(num, arange)
             ZVAL_LONG(&params[1], Z_LVAL_P(start));
         } else if (Z_TYPE_P(start) == IS_DOUBLE) {
             ZVAL_DOUBLE(&params[1], Z_DVAL_P(start));
+        } else {
+            php_error_docref(NULL, E_ERROR, "Unsupported operand type(s)");
+            RETURN_NULL();
         }
     } else {
         if (Z_TYPE_P(start) == IS_LONG) {
             ZVAL_LONG(&params[0], Z_LVAL_P(start));
         } else if (Z_TYPE_P(start) == IS_DOUBLE) {
             ZVAL_DOUBLE(&params[0], Z_DVAL_P(start));
+        } else {
+            php_error_docref(NULL, E_ERROR, "Unsupported operand type(s)");
+            RETURN_NULL();
         }
         if (Z_TYPE_P(stop) == IS_LONG) {
             ZVAL_LONG(&params[1], Z_LVAL_P(stop));
         } else if (Z_TYPE_P(stop) == IS_DOUBLE) {
             ZVAL_DOUBLE(&params[1], Z_DVAL_P(stop));
+        } else {
+            php_error_docref(NULL, E_ERROR, "Unsupported operand type(s)");
+            RETURN_NULL();
         }
     }
     if (step == NULL) {
@@ -103,6 +112,9 @@ ZEND_METHOD(num, arange)
             ZVAL_LONG(&params[2], Z_LVAL_P(step));
         } else if (Z_TYPE_P(step) == IS_DOUBLE) {
             ZVAL_DOUBLE(&params[2], Z_DVAL_P(step));
+        } else {
+            php_error_docref(NULL, E_ERROR, "Unsupported operand type(s)");
+            RETURN_NULL();
         }
     }
     ZVAL_STRING(&function_name, "range");
